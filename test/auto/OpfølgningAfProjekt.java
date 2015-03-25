@@ -28,8 +28,12 @@ public class OpfølgningAfProjekt {
 		planApp.addProject(p);
 
 		Project tempProject = planApp.getProject("1234");
-
-		assertNotEquals("", tempProject.getFollowup());
+		if (tempProject == null) {
+			fail("tempProject should not be null");
+		}
+		String followup = tempProject.getFollowup();
+		assertNotEquals("", followup);
+		System.out.println(followup);
 	}
 
 }

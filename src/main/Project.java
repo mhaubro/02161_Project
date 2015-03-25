@@ -1,6 +1,6 @@
 package main;
 
-public class Project {
+public class Project implements Comparable<Project> {
 	
 	private String name;
 	private String id;
@@ -14,12 +14,20 @@ public class Project {
 	}
 
 	public String getID() {
-		return id;
+		return new String(id);
 	}
 
 	public String getFollowup() {
 		// TODO create the real followup
 		return "this is a followUp test message";
 	}
+
+	@Override
+	public int compareTo(Project p) {
+		return this.id.compareTo(p.getID());
+	}
+
+
+	
 
 }
