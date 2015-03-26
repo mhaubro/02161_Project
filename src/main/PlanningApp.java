@@ -2,6 +2,7 @@ package main;
 
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class PlanningApp {
@@ -24,9 +25,19 @@ public class PlanningApp {
 
 	public Set<Project> searchProject(String searchKey) {
 		return projects.stream()
-		.filter(p -> p.contains(searchKey))
-		.collect(Collectors.toSet());
-		
+				.filter(p -> p.contains(searchKey))
+				.collect(Collectors.toSet());
+
+	}
+
+	public Set<User> getUsers() {
+		// TODO change to avoid reference.
+		return users;
+	}
+
+	public void addUser(User u) {
+		// TODO Auto-generated method stub
+		users.add(u);
 	}
 
 }
