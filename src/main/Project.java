@@ -21,6 +21,13 @@ public class Project implements Comparable<Project> {
 		// TODO create the real followup
 		return "this is a followUp test message";
 	}
+	
+	public boolean contains(String key){
+		if (name.contains(key) || id.contains(key)){
+			return true;
+		}
+		return false;
+	}
 
 	@Override
 	public int compareTo(Project p) {

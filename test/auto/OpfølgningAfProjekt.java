@@ -27,6 +27,8 @@ public class OpfølgningAfProjekt {
 		// adding the project to the planningApp
 		planApp.addProject(p);
 
+		assertTrue(planApp.searchProject("123").contains(p));
+		
 		Project tempProject = planApp.getProject("1234");
 		if (tempProject == null) {
 			fail("tempProject should not be null");

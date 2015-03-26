@@ -2,6 +2,7 @@ package main;
 
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 public class PlanningApp {
 
@@ -19,6 +20,13 @@ public class PlanningApp {
 				return p;
 		}
 		return null;
+	}
+
+	public Set<Project> searchProject(String searchKey) {
+		return projects.stream()
+		.filter(p -> p.contains(searchKey))
+		.collect(Collectors.toSet());
+		
 	}
 
 }
