@@ -1,37 +1,76 @@
 package auto;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import main.PlanningApp;
 import main.User;
 
+import org.junit.Before;
 import org.junit.Test;
-
-
 
 public class AddUser {
 
+	PlanningApp planApp;
+
+	@Before
+	public void setUp() throws Exception {
+		planApp = new PlanningApp();
+	}
 
 	@Test
-	public void testAdd() throws Exception {
+	public void testMain() throws Exception {
 		
-		PlanningApp planApp = new PlanningApp();
-		User testUser1 = new User("Jeff Smith", "JS");
-		User testUser2 = new User("Michal Svenson", "MS");
+		planApp.login("Admin");
+
+		// checks if the user is in the app.
+		assertEquals(null, planApp.getUserByInitials("JeSm"));
+		assertEquals(0,planApp.getNumberOfEmployes());
+
+		// adds the user
+		planApp.addUser("Jeff Smith");
+
+		// checks if the user now is in the app, in a correctly fashion.
+		assertTrue(planApp.getUserByInitials("JeSm").getName().equals("Jeff Smith"));
+		assertEquals(1,planApp.getNumberOfEmployes());
+		
+		planApp.addUser("Johanna Olson");
+		assertEquals(2,planApp.getNumberOfEmployes());
+		
+		planApp.removeUserByInitials("JoOl");
+		assertEquals(1,planApp.getNumberOfEmployes());
+		
+		planApp.removeUserByInitials("JeSm");
+		assertEquals(0,planApp.getNumberOfEmployes());
 		
 		
-		assertFalse(planApp.getUsers().contains(testUser1));
-		assertFalse(planApp.getUsers().contains(testUser2));
+	}
+
+	@Test
+	public void testSuperUser() throws Exception {
 		
-		planApp.addUser(testUser1);
+		planApp.login("Admin");
+		assertEquals(0,planApp.getNumberOfEmployes());
+
+		// add a user to an empty planningApp
+		planApp.addUser("Jeff Smith");
+
+		// tests if the only user is superuser
+		assertEquals(1,planApp.getNumberOfEmployes());
+		User temp = planApp.getUserByInitials("JeSm");
+		assertTrue(temp.isSuperUser());
 		
-		assertTrue(planApp.getUsers().contains(testUser1));
-		assertFalse(planApp.getUsers().contains(testUser2));
+		// adds another user, which should not be superuser
+		planApp.addUser("Micheal Hanson");
+		assertEquals(2,planApp.getNumberOfEmployes());
+		assertFalse(planApp.getUserByInitials("MiHa").isSuperUser());
 		
-		planApp.addUser(testUser2);
+		// removes the last superuser, while still leaving another user in the app
+		planApp.removeUserByInitials("JeSm");
+		assertEquals(1,planApp.getNumberOfEmployes());
 		
-		assertTrue(planApp.getUsers().contains(testUser2));
+		assertTrue(planApp.getUserByInitials("MiHa").isSuperUser());
 		
+		
+
 	}
 
 }

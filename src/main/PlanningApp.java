@@ -6,6 +6,8 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class PlanningApp {
+	
+	private static final User admin = new User("Admin Administrator", "Admin");
 
 	private Set<User> users = new TreeSet<User>();
 	private Set<Project> projects = new TreeSet<Project>();
@@ -35,9 +37,28 @@ public class PlanningApp {
 		return users;
 	}
 
-	public void addUser(User u) {
+	public void addUser(String name) {
 		// TODO Auto-generated method stub
-		users.add(u);
+		users.add(new User(name, name));
+	}
+
+	public User getUserByInitials(String string) {
+		return null;//TODO get user by initials
+	}
+
+	public void removeUserByInitials(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void login(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public int getNumberOfEmployes() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
