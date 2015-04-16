@@ -10,108 +10,43 @@ import main.Timespan;
 import main.User;
 import org.junit.*;
 
-public class AddActivity {
-	//OBSOBSOBS - Der skal styr på, hvordan projekters løbenumre er defineret.
-	//Derudover nægter @Before at virke
-
-	
-	@Before
-	public static void setUp() throws Exception {
-		
-		//Constructors
-		PlanningApp planApp = new PlanningApp();
-		Project project1 = new Project("Projekt 1", "P1", planApp.userByInitials("MaMi"));
-		Project project2 = new Project("Projekt 2", "P2", planApp.userByInitials("HaNi"));
-		Calendar calendar1 = new GregorianCalendar(2015,0,1);//
-		Calendar calendar2 = new GregorianCalendar(2015,4,2);//=||=
-		Timespan timeSpan = new Timespan(calendar1, calendar2);
-		
-		//Construct Users
-		planApp.addUser("Jens Hansen");
-		planApp.addUser("Hans Nielsen");
-		planApp.addUser("Mads Mikkelsen");
-		//Danner projekt
-
-		//Danner aktivitet
-
-	}
-
-
+public class AddActivity extends SampleDataSetup{
 	
 	//Tilføjer aktivitet som projektleder. Skal godkende.
 	@Test
-	public static void testMain() throws Exception{
-		
-		//Constructors
-		PlanningApp planApp = new PlanningApp();
-		//Construct Users
-		planApp.addUser("Jens Hansen");
-		planApp.addUser("Hans Nielsen");
-		planApp.addUser("Mads Mikkelsen");
-		//Danner projekt
-		Project project1 = new Project("Projekt 1", "P1", planApp.userByInitials("MaMi"));
-		Project project2 = new Project("Projekt 2", "P2", planApp.userByInitials("HaNi"));
-		Calendar calendar1 = new GregorianCalendar();//
-		Calendar calendar2 = new GregorianCalendar();//=||=
-		Timespan timeSpan = new Timespan(calendar1, calendar2);
-		
+	public void testMain() throws Exception{
 
-		//Danner projekt
-
-		//Danner aktivitet
+		Timespan timespan = new Timespan(new GregorianCalendar(2015,3,1), new GregorianCalendar(2015,1,1));
 		
-		planApp.login("MaMi"); 
-		Activity activity = new Activity("UML Diagrammer","UML","UMLD",timeSpan, project1, 100);//EDIT TIL Activity-object: Der er også int, int på til sidst - ugenumre/budgettet time
-		planApp.getProject("LØBENUMMER, projekt 1").addActivity(activity);
+		planApp.login("MiNe"); 
+		planApp.getProjectByName("Solstorm").addActivity("Regndans", "Der skal også vand til!", timespan, 10);
 		
-		assertEquals(1,planApp.getProject("LØBENUMMBER, projekt 1").getActivities().size());
-		assertEquals("UML Diagrammer",planApp.getProject("LØBENUMMER, projekt 1").getActivities().get(0).name());
+		assertEquals(1,planApp.getProjectByName("Solstorm").getNumberOfActivities());
+		assertEquals(true, planApp.getProjectByName("Solstorm").containsActivity("Regndans"));
 		
 	}
 	
-	//Tilføjer aktivitet som SuperUser. Skal godkende
-//	@Test
-//	public void testIsSuperUser(){
-//		
-//		
-//		Activity activity = new Activity("UML Diagrammer","UML","UMLD",timeSpan, project1, 100);//EDIT TIL Activity-object: Der er også int, int på til sidst - ugenumre/budgettet time
-//
-//	}
-//	
+	
+	
 	//Tilføjer aktivitet som almen bruger. Skal fejle.
 	@Test
-	public static void testIsStandardUser(){
+	public void testAltnernative() throws Exception{
 		
-		//Constructors
-		PlanningApp planApp = new PlanningApp();
-		Project project1 = new Project("Projekt 1", "P1", planApp.userByInitials("MaMi"));
-		Project project2 = new Project("Projekt 2", "P2", planApp.userByInitials("HaNi"));
-		Calendar calendar1 = new GregorianCalendar();//
-		Calendar calendar2 = new GregorianCalendar();//=||=
-		Timespan timeSpan = new Timespan(calendar1, calendar2);
+		Timespan timespan = new Timespan(new GregorianCalendar(2015,3,1), new GregorianCalendar(2015,1,1));
 		
-		//Construct Users
-		planApp.addUser("Jens Hansen");
-		planApp.addUser("Hans Nielsen");
-		planApp.addUser("Mads Mikkelsen");
-		//Danner projekt
+		planApp.login("DaSc");
 
-		//Danner aktivitet
-		
-		planApp.login("JeHa"); 
-		Activity activity = new Activity("UML Diagrammer","UML","UMLD",timeSpan, project1, 100);//EDIT TIL Activity-object: Der er også int, int på til sidst - ugenumre/budgettet time
 		try{
-			planApp.getProject("LØBENUMMER, PROJEKT 1").addActivity(activity);
-			//Skal fejle, da det ikke er projektleder, der er aktiv.
+			planApp.getProjectByName("Solstorm").addActivity("Regndans", "Der skal også vand til!", timespan, 10);
 			fail();
-			
 		} catch (OperationNotAllowedException e){
-			assertEquals("Adding activity is only allowed while logged in as the project leader.",e.getMessage());
+			assertEquals("The action is not allowed.",e.message);
 		}
-		
-		assertEquals(0,planApp.getProject("LØBENUMMBER").getActivities().size());
-		
+		assertEquals(0,planApp.getProjectByName("Solstorm").getNumberOfActivities());
+		assertEquals(false, planApp.getProjectByName("Solstorm").containsActivity("Regndans"));
 	}
+	
+	
 	
 }
 
