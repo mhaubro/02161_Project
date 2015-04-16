@@ -26,15 +26,8 @@ public class AddActivity extends SampleDataSetup{
 		
 	}
 	
-	//Tilføjer aktivitet som SuperUser. Skal godkende
-//	@Test
-//	public void testIsSuperUser(){
-//		
-//		
-//		Activity activity = new Activity("UML Diagrammer","UML","UMLD",timeSpan, project1, 100);//EDIT TIL Activity-object: Der er også int, int på til sidst - ugenumre/budgettet time
-//
-//	}
-//	
+	
+	
 	//Tilføjer aktivitet som almen bruger. Skal fejle.
 	@Test
 	public void testAltnernative() throws Exception{
