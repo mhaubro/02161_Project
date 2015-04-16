@@ -6,7 +6,7 @@ import java.util.TreeSet;
 public class User implements Comparable<User>{
 	
 	private String name;
-	private String id;
+	private String initials;
 	private boolean isSuperUser;
 	
 	private Set<Report> reports = new TreeSet<Report>();
@@ -14,15 +14,15 @@ public class User implements Comparable<User>{
 	
 	public User(String name, String id){
 		this.name = name;
-		this.id = id;
+		this.initials = id;
 	}
 	
 	public String getName(){
 		return name;
 	}
 	
-	public String getID(){
-		return id;
+	public String getInitials(){
+		return initials;
 	}
 	
 	public boolean isSuperUser(){
@@ -47,7 +47,7 @@ public class User implements Comparable<User>{
 
 	@Override
 	public int compareTo(User u) {
-		return this.id.compareTo(u.getID());
+		return this.initials.compareTo(u.getInitials());
 	}
 
 	public User copy() {

@@ -29,8 +29,8 @@ public class AddUser {
 		planApp.addUser("Jeff Smith");
 
 		// checks if the user now is in the app, in a correctly fashion.
-		assertTrue(planApp.getUserByInitials("JeSm").getName().equals("Jeff Smith"));
 		assertEquals(1,planApp.getNumberOfEmployes());
+		assertTrue(planApp.getUserByInitials("JeSm").getName().equals("Jeff Smith"));
 		
 		planApp.addUser("Johanna Olson");
 		assertEquals(2,planApp.getNumberOfEmployes());
@@ -55,19 +55,18 @@ public class AddUser {
 
 		// tests if the only user is superuser
 		assertEquals(1,planApp.getNumberOfEmployes());
-		User temp = planApp.getUserByInitials("JeSm");
-		assertTrue(temp.isSuperUser());
+		assertTrue(planApp.isSuperByInitials("JeSm"));
 		
 		// adds another user, which should not be superuser
 		planApp.addUser("Micheal Hanson");
 		assertEquals(2,planApp.getNumberOfEmployes());
-		assertFalse(planApp.getUserByInitials("MiHa").isSuperUser());
+		assertFalse(planApp.isSuperByInitials("MiHa"));
 		
 		// removes the last superuser, while still leaving another user in the app
 		planApp.removeUserByInitials("JeSm");
 		assertEquals(1,planApp.getNumberOfEmployes());
 		
-		assertTrue(planApp.getUserByInitials("MiHa").isSuperUser());
+		assertTrue(planApp.isSuperByInitials("MiHa"));
 		
 		
 
