@@ -44,6 +44,10 @@ public class Project implements Comparable<Project> {
 		return null;
 	}
 
+	public User getProjectLeader() {
+		return this.projectLeader;
+	}
+
 
 	
 
