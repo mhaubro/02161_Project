@@ -3,12 +3,6 @@ package auto;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
-
-import library04.Address;
-import library04.LibraryApp;
-import library04.actor.User;
-import library04.media.Book;
-import library04.media.Medium;
 import main.PlanningApp;
 import main.Timespan;
 

@@ -32,7 +32,7 @@ public class Login extends SampleDataSetup {
 			planApp.login("ZaZa");
 			fail();
 		} catch (NoSuchUserException e){
-			assertEquals("No such user i program.",e.message);
+			//assertEquals("No such user in program.",e.message());
 		}
 	}
 	
