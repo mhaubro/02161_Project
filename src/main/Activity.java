@@ -19,7 +19,7 @@ public class Activity {
 	private Set<Report> reports = new TreeSet<Report>();
 	private Set<PlannedWork> plannedWork = new TreeSet<PlannedWork>();
 	
-	public Activity(String name, String task, String id, Timespan t, Project p){
+	public Activity(String name, String task, String id, Timespan t, Project p, int budgettetTime){
 		this.name = name;
 		this.task = task;
 		this.id = id;
