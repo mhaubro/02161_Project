@@ -91,4 +91,20 @@ public class PlanningApp {
 		return users.size();
 	}
 
+	public Project getProjectByName(String name) {
+		return null;
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addProject(String name, String userInitials) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addActivity(String name, String desciption, Timespan timespan, int BudgettetTime) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

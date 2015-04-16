@@ -44,6 +44,7 @@ public class AddUser {
 		
 	}
 
+	/*
 	@Test
 	public void testSuperUser() throws Exception {
 		
@@ -68,8 +69,6 @@ public class AddUser {
 		
 		assertTrue(planApp.isSuperByInitials("MiHa"));
 		
-		
-
-	}
+	}*/
 
 }

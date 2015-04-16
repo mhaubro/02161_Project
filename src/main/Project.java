@@ -34,6 +34,16 @@ public class Project implements Comparable<Project> {
 		return this.id.compareTo(p.getID());
 	}
 
+	public void addActivity(String string, String string2, Timespan timespan, int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Activity getActivityByName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	
 
