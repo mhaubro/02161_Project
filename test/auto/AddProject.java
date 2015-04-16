@@ -24,7 +24,6 @@ public class AddProject {
 		User u = new User("user1", "u1");
 		Project p = new Project("project1", "1234", u);
 		
-		planApp.addUser("user1");
 
 		// adding the project to the planningApp
 		planApp.addProject(p);

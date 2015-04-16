@@ -7,7 +7,6 @@ public class User implements Comparable<User>{
 	
 	private String name;
 	private String initials;
-	private boolean isSuperUser;
 	
 	private Set<Report> reports = new TreeSet<Report>();
 	private Set<Activity> plannedActivities = new TreeSet<Activity>();
@@ -23,10 +22,6 @@ public class User implements Comparable<User>{
 	
 	public String getInitials(){
 		return initials;
-	}
-	
-	public boolean isSuperUser(){
-		return isSuperUser;
 	}
 	
 	public boolean isAvailable(Timespan t){
