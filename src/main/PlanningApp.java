@@ -6,6 +6,9 @@ import java.util.TreeSet;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import exceptions.NoSuchUserException;
+import exceptions.OperationNotAllowedException;
+
 public class PlanningApp {
 
 	private static final User admin = new User("Admin Administrator", "Admin");
@@ -97,14 +100,18 @@ public class PlanningApp {
 		
 	}
 
-	public void addProject(String name, String userInitials) {
-		// TODO Auto-generated method stub
+	public void addProject(String name, String userInitials) throws OperationNotAllowedException, NoSuchUserException{
+		
 		
 	}
 
 	public void addActivity(String name, String desciption, Timespan timespan, int BudgettetTime) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void logout() {
+		currentUser = null;
 	}
 
 }

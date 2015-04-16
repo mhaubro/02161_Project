@@ -32,4 +32,9 @@ public class Activity {
 		return null;
 	}
 
+	public void planWork(String string, Timespan timespan2) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
