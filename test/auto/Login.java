@@ -17,6 +17,8 @@ public class Login extends SampleDataSetup {
 		planApp.logIn("GaWo");
 		assertEquals(0, planApp.activeUser.compareTo(planApp.getUserByInitials("GaWo")));
 		assertFalse(planApp.isSuperUserByInitials(planApp.activeUser.getInitials()));
+		planApp.logout();
+		assertNull(planApp.activeUser);
 	}
 	
 	@Test
@@ -34,7 +36,5 @@ public class Login extends SampleDataSetup {
 		} catch (NoSuchUserException e){
 			//assertEquals("No such user in program.",e.message());
 		}
-	}
-	
-	
+	}	
 }
