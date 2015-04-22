@@ -16,6 +16,10 @@ public class Project implements Comparable<Project> {
 	public String getID() {
 		return new String(id);
 	}
+	
+	public String getName(){
+		return name;
+	}
 
 	public String getFollowup() {
 		// TODO create the real followup
