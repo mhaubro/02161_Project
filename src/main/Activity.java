@@ -3,6 +3,9 @@ package main;
 import java.util.Set;
 import java.util.TreeSet;
 
+import exceptions.OperationNotAllowedException;
+import exceptions.OverlapException;
+
 public class Activity {
 	
 	private String name;
@@ -35,6 +38,20 @@ public class Activity {
 	public void planWork(String string, Timespan timespan2) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void registreTime(Timespan timespan, String note) throws OperationNotAllowedException, OverlapException{
+		if (timespan == null){
+			throw new OperationNotAllowedException("cant register time, when not given a timespan");
+		}
+		
+		// TODO Auto-generated method stub
+		
+	}
+
+	public double getRegistretTime() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
