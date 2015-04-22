@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -13,10 +14,10 @@ public class PlanningApp {
 
 	private static final User admin = new User("Admin Administrator", "Admin");
 
-	private TreeMap<String, User> users = new TreeMap<String, User>();
+	private TreeSet<User> users = new TreeSet<User>();
 	private TreeSet<String> isSuper = new TreeSet<String>();
 	private Set<Project> projects = new TreeSet<Project>();
-
+	private ArrayList<Activity> activities = new ArrayList<Activity>();
 	private User currentUser;
 
 	public void addProject(Project p) {
@@ -105,9 +106,14 @@ public class PlanningApp {
 		
 	}
 
-	public void addActivity(String name, String desciption, Timespan timespan, int BudgettetTime) {
+	public void addActivity(String name, String description, Timespan timespan, int BudgettetTime, Project P) throws OperationNotAllowedException {
 		// TODO Auto-generated method stub
-		
+		P.addActivity(name, description, timespan, BudgettetTime);
+	}
+	
+	public void addActivity(String name, String description, Timespan timespan, int BudgettetTime) throws OperationNotAllowedException {
+		// TODO Auto-generated method stub
+		activities.add(new Activity(name, description, timespan, BudgettetTime));
 	}
 
 	public void logout() {
@@ -117,5 +123,7 @@ public class PlanningApp {
 	public User getActiveUser() {
 		return currentUser;
 	}
+	
+	
 
 }
