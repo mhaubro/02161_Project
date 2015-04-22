@@ -1,9 +1,9 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import exceptions.NoSuchUserException;
@@ -13,62 +13,37 @@ public class PlanningApp {
 
 	private static final User admin = new User("Admin Administrator", "Admin");
 
-	private TreeMap<String, User> users = new TreeMap<String, User>();
+	private TreeSet<User> users = new TreeSet<User>();
 	private TreeSet<String> isSuper = new TreeSet<String>();
-	private Set<Project> projects = new TreeSet<Project>();
+	private TreeSet<Project> projects = new TreeSet<Project>();
 
-	private User currentUser;
+	private User ActiveUser;
 
 	public void addProject(Project p) {
-		if (p != null)
-			projects.add(p);
+		
 	}
 
 	public Project getProject(String id) {
-		for (Project p : projects) {
-			if (p.getID().equals(id))
-				return p;
-		}
-		return null;
-	}
-
-	public Set<Project> searchProject(String searchKey) {
-		return projects.stream()
-				.filter(p -> p.contains(searchKey))
-				.collect(Collectors.toSet());
-
+		
 	}
 
 	public void addUser(String name) throws Exception {
-		String[] nameArray = name.split(" ");
-		String initials = nameArray[0].substring(0, 2) + nameArray[1].substring(0, 2);
-
-		if (users.containsKey(initials)) {
-			throw new Exception("a user with the same initials is already in the system.");
-		}
-		users.put(initials, new User(name, initials));
-		if (isSuper.size() == 0){
-			isSuper.add(users.firstKey());
-		}
+		
 	}
 
 	public User getUserByInitials(String initials) {
-		return users.getOrDefault(initials, null);
+		
 	}
 
 	public void removeUserByInitials(String initials) {
-		users.remove(initials);
-		isSuper.remove(initials);
-		if (isSuper.size() == 0 && users.size()!=0){
-			isSuper.add(users.firstKey());
-		}
+		
 	}
 
 	public void login(String initials) {
 		if (initials.equals("Admin")) {
-			currentUser = admin;
+			ActiveUser = admin;
 		} else {
-			currentUser = users.getOrDefault(initials, null);
+			ActiveUser = users.parallelStream().filter(u -> u.getInitials().equals(initials)).
 		}
 	}
 	
@@ -81,7 +56,7 @@ public class PlanningApp {
 	}
 	
 	public void makeSuper(String initials){
-		if (users.containsKey(initials)){
+		if (users.parallelStream().anyMatch(u -> u.getInitials().equals(initials))){
 			isSuper.add(initials);
 		}
 	}
@@ -95,9 +70,12 @@ public class PlanningApp {
 	}
 
 	public Project getProjectByName(String name) {
+		for (Project p : projects){
+			if (p.getName().equalsIgnoreCase(name)){
+				return p;
+			}
+		}
 		return null;
-		// TODO Auto-generated method stub
-		
 	}
 
 	public void addProject(String name, String userInitials) throws OperationNotAllowedException, NoSuchUserException{
@@ -111,11 +89,11 @@ public class PlanningApp {
 	}
 
 	public void logout() {
-		currentUser = null;
+		ActiveUser = null;
 	}
 
 	public User getActiveUser() {
-		return currentUser;
+		return ActiveUser;
 	}
 
 }
