@@ -20,48 +20,61 @@ public class PlanningApp {
 	private User ActiveUser;
 
 	public void addProject(Project p) {
-		
+
 	}
 
 	public Project getProject(String id) {
-		
+		for (Project p : projects) {
+			if (p.getID().equals(id)) {
+				return p;
+			}
+		}
+		return null;
 	}
 
 	public void addUser(String name) throws Exception {
-		
+
 	}
 
 	public User getUserByInitials(String initials) {
-		
+		for (User u : users) {
+			if (u.getInitials().equals(initials)) {
+				return u;
+			}
+		}
+		return null;
+
 	}
 
 	public void removeUserByInitials(String initials) {
-		
+		users.removeIf(u -> u.getInitials().equals(initials));
 	}
 
-	public void login(String initials) {
+	public void login(String initials) throws NoSuchUserException {
 		if (initials.equals("Admin")) {
 			ActiveUser = admin;
 		} else {
-			ActiveUser = users.parallelStream().filter(u -> u.getInitials().equals(initials)).
+			ActiveUser = users.parallelStream()
+					.filter(u -> u.getInitials().equals(initials))
+					.findFirst().orElseThrow(NoSuchUserException::new);
 		}
 	}
-	
-	public boolean isSuperByInitials(String initials){
-		if (initials.equals("Admin")){
+
+	public boolean isSuperByInitials(String initials) {
+		if (initials.equals("Admin")) {
 			return true;
-		}else{
+		} else {
 			return isSuper.contains(initials);
 		}
 	}
-	
-	public void makeSuper(String initials){
-		if (users.parallelStream().anyMatch(u -> u.getInitials().equals(initials))){
+
+	public void makeSuper(String initials) {
+		if (users.parallelStream().anyMatch(u -> u.getInitials().equals(initials))) {
 			isSuper.add(initials);
 		}
 	}
-	
-	public void revokeSuper(String initials){
+
+	public void revokeSuper(String initials) {
 		isSuper.remove(initials);
 	}
 
@@ -70,22 +83,21 @@ public class PlanningApp {
 	}
 
 	public Project getProjectByName(String name) {
-		for (Project p : projects){
-			if (p.getName().equalsIgnoreCase(name)){
+		for (Project p : projects) {
+			if (p.getName().equalsIgnoreCase(name)) {
 				return p;
 			}
 		}
 		return null;
 	}
 
-	public void addProject(String name, String userInitials) throws OperationNotAllowedException, NoSuchUserException{
-		
-		
+	public void addProject(String name, String userInitials) throws OperationNotAllowedException, NoSuchUserException {
+
 	}
 
 	public void addActivity(String name, String desciption, Timespan timespan, int BudgettetTime) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void logout() {
