@@ -1,16 +1,23 @@
 package main;
 
+import java.util.ArrayList;
+
+import exceptions.OperationNotAllowedException;
+
 public class Project implements Comparable<Project> {
 	
+	private ArrayList<Activity> activities;
 	private String name;
 	private String id;
-	
+	private PlanningApp planApp;
 	private User projectLeader;
 	
-	public Project(String name, String id, User projectLeader){
+	public Project(String name, String id, User projectLeader, PlanningApp planApp){
+		this.planApp = planApp;
 		this.name = name;
 		this.id = id;
 		this.projectLeader = projectLeader;
+		this.activities = new ArrayList<Activity>();
 	}
 
 	public String getID() {
@@ -34,13 +41,24 @@ public class Project implements Comparable<Project> {
 		return this.id.compareTo(p.getID());
 	}
 
-	public void addActivity(String string, String string2, Timespan timespan, int i) {
-		// TODO Auto-generated method stub
+	public void addActivity(String name, String description, Timespan timespan, int budgettetTime) throws OperationNotAllowedException {
+		//  
+		if (planApp.getActiveUser().equals(this.projectLeader)){
+			Activity newAct = new Activity(name, description, timespan, this, budgettetTime);
+			activities.add(newAct);
+		} else {
+			throw new OperationNotAllowedException("Kun projektlederen kan oprette aktiviteter");
+		}
 		
 	}
 
 	public Activity getActivityByName(String name) {
-		// TODO Auto-generated method stub
+		// 
+		for (Activity activity : activities){
+			if (activity.getName().equalsIgnoreCase(name)){
+				return activity;
+			}
+		}
 		return null;
 	}
 
@@ -48,7 +66,17 @@ public class Project implements Comparable<Project> {
 		return this.projectLeader;
 	}
 
-
+	public int getNumberOfActivities(){//Metode brugt til JUnit-tests
+		return activities.size();
+	}
 	
+	public boolean containsActivity(String name){
+		for (Activity activity : activities){
+			if (activity.getName().equalsIgnoreCase(name)){
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
