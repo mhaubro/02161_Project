@@ -1,10 +1,7 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 import exceptions.NoSuchUserException;
 import exceptions.OperationNotAllowedException;
@@ -16,12 +13,9 @@ public class PlanningApp {
 	private TreeSet<User> users = new TreeSet<User>();
 	private TreeSet<String> isSuper = new TreeSet<String>();
 	private TreeSet<Project> projects = new TreeSet<Project>();
+	private ArrayList<Activity> activities = new ArrayList<Activity>();
 
 	private User ActiveUser;
-
-	public void addProject(Project p) {
-
-	}
 
 	public Project getProject(String id) {
 		for (Project p : projects) {
@@ -30,10 +24,6 @@ public class PlanningApp {
 			}
 		}
 		return null;
-	}
-
-	public void addUser(String name) throws Exception {
-
 	}
 
 	public User getUserByInitials(String initials) {
@@ -95,9 +85,10 @@ public class PlanningApp {
 
 	}
 
-	public void addActivity(String name, String desciption, Timespan timespan, int BudgettetTime) {
-		// TODO Auto-generated method stub
+	public void addActivity(String name, String description, Timespan timespan, int BudgettetTime)
+			throws OperationNotAllowedException {
 
+		activities.add(new Activity(name, description, timespan, BudgettetTime));
 	}
 
 	public void logout() {
