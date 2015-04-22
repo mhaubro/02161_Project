@@ -50,4 +50,9 @@ public class User implements Comparable<User>{
 		return null;
 	}
 
+	public boolean overlapingReport(Timespan tempTime) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

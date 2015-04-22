@@ -114,4 +114,8 @@ public class PlanningApp {
 		currentUser = null;
 	}
 
+	public User getActiveUser() {
+		return currentUser;
+	}
+
 }
