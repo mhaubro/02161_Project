@@ -18,10 +18,19 @@ import exceptions.NoSuchUserException;
 public class Login extends SampleDataSetup {
 	
 	@Test
+<<<<<<< HEAD
 	public void main() throws Exception{//Gyldig bruger
 		planApp.login("GaWo");
 		assertEquals(0, planApp.getActiveUser().compareTo(planApp.getUserByInitials("GaWo")));
 		assertFalse(planApp.isSuperByInitials(planApp.getActiveUser().getInitials()));
+=======
+	public void main(){//Gyldig bruger
+		planApp.logIn("GaWo");
+		assertEquals(0, planApp.activeUser.compareTo(planApp.getUserByInitials("GaWo")));
+		assertFalse(planApp.isSuperUserByInitials(planApp.activeUser.getInitials()));
+		planApp.logout();
+		assertNull(planApp.activeUser);
+>>>>>>> branch 'master' of https://github.com/mhaubro/02161_Project.git
 	}
 	
 	@Test
@@ -39,7 +48,5 @@ public class Login extends SampleDataSetup {
 		} catch (NoSuchUserException e){
 			//assertEquals("No such user in program.",e.message());
 		}
-	}
-	
-	
+	}	
 }

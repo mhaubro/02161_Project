@@ -42,6 +42,13 @@ public class SwitchProjectLeader extends SampleDataSetup{
 	
 	@Test
 	public void testNoUser(){
+		planApp.login("MiNe");
+		try{
+			planApp.getProjectByName("Solstorm").switchProjectLeader("HaGr");
+			fail();
+		} catch (NoSuchUserException e){
+			
+		}
 		
 	}
 	
