@@ -7,6 +7,8 @@ import main.User;
 import org.junit.Before;
 import org.junit.Test;
 
+import exceptions.NoSuchUserException;
+
 public class AddUser {
 
 	PlanningApp planApp;
@@ -22,7 +24,11 @@ public class AddUser {
 		planApp.login("Admin");
 
 		// checks if the user is in the app.
-		assertEquals(null, planApp.getUserByInitials("JeSm"));
+		try {
+			planApp.getUserByInitials("JeSm");
+			fail("the user is not added yet");
+		} catch (NoSuchUserException e) {}
+		
 		assertEquals(0,planApp.getNumberOfEmployes());
 
 		// adds the user

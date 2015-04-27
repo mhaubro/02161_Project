@@ -11,9 +11,9 @@ public class User implements Comparable<User>{
 	private Set<Report> reports = new TreeSet<Report>();
 	private Set<Activity> plannedActivities = new TreeSet<Activity>();
 	
-	public User(String name, String id){
+	public User(String name, String initials){
 		this.name = name;
-		this.initials = id;
+		this.initials = initials;
 	}
 	
 	public String getName(){

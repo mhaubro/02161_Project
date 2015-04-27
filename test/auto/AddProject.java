@@ -13,7 +13,7 @@ import exceptions.OperationNotAllowedException;
 
 public class AddProject extends SampleDataSetup {
 
-	PlanningApp planApp;
+	//PlanningApp planApp;
 
 	@Test
 	public void testMain() throws Exception {
@@ -29,7 +29,7 @@ public class AddProject extends SampleDataSetup {
 	}
 
 	@Test
-	public void testIsNotSuperUser() {
+	public void testIsNotSuperUser() throws Exception {
 
 		// login as a not superuser
 		planApp.login("MiJh");
@@ -45,7 +45,7 @@ public class AddProject extends SampleDataSetup {
 	}
 
 	@Test
-	public void testSuperDosntAddCorrectUser() {
+	public void testSuperDosntAddCorrectUser() throws Exception {
 
 		// login as a superUser
 		planApp.login("MaGa");
@@ -63,7 +63,7 @@ public class AddProject extends SampleDataSetup {
 	}
 
 	@Test
-	public void testProjectNameAllreadyExist() {
+	public void testProjectNameAllreadyExist() throws Exception {
 		// login as a superUser
 		planApp.login("MaGa");
 

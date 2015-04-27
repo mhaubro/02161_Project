@@ -33,6 +33,7 @@ public class SampleDataSetup {
 		
 		planApp.addUser("Martin Haubro");
 		planApp.makeSuper("MaHa");
+	
 		
 		// adds some users
 		planApp.addUser("Jeff Smith");

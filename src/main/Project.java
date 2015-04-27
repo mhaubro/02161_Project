@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
+import exceptions.NoSuchUserException;
 import exceptions.OperationNotAllowedException;
 
 public class Project implements Comparable<Project> {
@@ -47,7 +48,7 @@ public class Project implements Comparable<Project> {
 
 	public void addActivity(String name, String description, Timespan timespan, int budgettetTime) throws OperationNotAllowedException {
 		//  
-		if (planApp.getActiveUser().equals(this.projectLeader)){
+		if (planApp.getActiveUser().equals(this.projectLeader)|| planApp.isSuperByInitials(planApp.getActiveUser().getInitials())){
 			Activity newAct = new Activity(name, description, timespan, this, budgettetTime);
 			activities.add(newAct);
 		} else {
@@ -81,6 +82,16 @@ public class Project implements Comparable<Project> {
 			}
 		}
 		return false;
+	}
+
+	public void switchProjectLeader(String initials) throws OperationNotAllowedException, NoSuchUserException {
+		User activeUser = planApp.getActiveUser();
+		if (!this.projectLeader.equals(activeUser) && !planApp.isSuperByInitials(activeUser.getInitials()))
+			throw new OperationNotAllowedException("the active user is not projectleader [activeUser = " + planApp.getActiveUser().getInitials() + " | ProjectLeader = " + this.projectLeader.getInitials());
+		
+		User newProjectLeader = planApp.getUserByInitials(initials);
+		
+		this.projectLeader = newProjectLeader;
 	}
 
 }

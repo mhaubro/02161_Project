@@ -1,20 +1,26 @@
 package auto;
 
 import static org.junit.Assert.*;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
 import main.Activity;
 import main.PlanningApp;
 import main.Project;
 import main.Timespan;
 import main.User;
+
 import org.junit.*;
+
+import exceptions.NoSuchUserException;
+import exceptions.OperationNotAllowedException;
 
 
 public class SwitchProjectLeader extends SampleDataSetup{
 	
 	@Test
-	public void testMain(){
+	public void testMain() throws Exception{
 		assertEquals("MiNe", planApp.getProjectByName("Solstorm").getProjectLeader().getInitials());
 		planApp.login("MiNe");
 		planApp.getProjectByName("Solstorm").switchProjectLeader("JeSm");
@@ -22,14 +28,14 @@ public class SwitchProjectLeader extends SampleDataSetup{
 	}
 	
 	@Test
-	public void testAdmin(){
+	public void testAdmin() throws Exception{
 		planApp.login("Admin");
 		planApp.getProjectByName("Solstorm").switchProjectLeader("JeSm");
 		assertEquals("JeSm", planApp.getProjectByName("Solstorm").getProjectLeader().getInitials());
 	}
 	
 	@Test
-	public void testAlternative(){
+	public void testAlternative() throws Exception{
 		planApp.login("SyRo");
 		try {		
 			planApp.getProjectByName("Solstorm").switchProjectLeader("JeSm");
@@ -41,7 +47,7 @@ public class SwitchProjectLeader extends SampleDataSetup{
 	}
 	
 	@Test
-	public void testNoUser(){
+	public void testNoUser() throws Exception{
 		planApp.login("MiNe");
 		try{
 			planApp.getProjectByName("Solstorm").switchProjectLeader("HaGr");

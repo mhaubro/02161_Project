@@ -18,25 +18,19 @@ import exceptions.NoSuchUserException;
 public class Login extends SampleDataSetup {
 	
 	@Test
-<<<<<<< HEAD
-	public void main() throws Exception{//Gyldig bruger
+
+	public void main()throws Exception{//Gyldig bruger
 		planApp.login("GaWo");
-		assertEquals(0, planApp.getActiveUser().compareTo(planApp.getUserByInitials("GaWo")));
+		assertTrue(planApp.getActiveUser().getInitials().equalsIgnoreCase("GaWo"));
 		assertFalse(planApp.isSuperByInitials(planApp.getActiveUser().getInitials()));
-=======
-	public void main(){//Gyldig bruger
-		planApp.logIn("GaWo");
-		assertEquals(0, planApp.activeUser.compareTo(planApp.getUserByInitials("GaWo")));
-		assertFalse(planApp.isSuperUserByInitials(planApp.activeUser.getInitials()));
 		planApp.logout();
-		assertNull(planApp.activeUser);
->>>>>>> branch 'master' of https://github.com/mhaubro/02161_Project.git
+		assertNull(planApp.getActiveUser());
 	}
 	
 	@Test
 	public void admin() throws Exception{//Admin
 		planApp.login("Admin");
-		assertEquals(0, planApp.getActiveUser().compareTo(planApp.getUserByInitials("Admin")));
+		assertTrue(planApp.getActiveUser().getInitials().equalsIgnoreCase("Admin"));
 		assertTrue(planApp.isSuperByInitials(planApp.getActiveUser().getInitials()));
 	}
 	
@@ -44,7 +38,7 @@ public class Login extends SampleDataSetup {
 	public void alternative(){//Ikke-eksisterende bruger
 		try{
 			planApp.login("ZaZa");
-			fail();
+			fail("cant login as a user that does not exist");
 		} catch (NoSuchUserException e){
 			//assertEquals("No such user in program.",e.message());
 		}
