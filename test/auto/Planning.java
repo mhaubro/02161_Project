@@ -74,5 +74,24 @@ public class Planning extends SampleDataSetup{
 	
 	}
 	
-	
+	@Test
+	public void testNoSuchUser(){
+		setUp2();
+		try {
+			planApp.getProjectByName("HalfLife3").getActivityByName("Engine").planWork("DaSc", timespan2);
+			fail();
+		} catch (NoSuchUserException e){
+			
+		}
+	}
+	@Test
+	public void testTimeSpanIsNotNull(){
+		setUp2();
+		Timespan timespan3 = null;
+		try {
+			planApp.getProjectByName("HalfLife3").getActivityByName("Engine").planWork("DaSc", timespan3);
+		} catch (TimeSpanIsNullException e){
+			
+		}
+	}
 }
