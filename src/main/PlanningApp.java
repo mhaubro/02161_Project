@@ -46,7 +46,7 @@ public class PlanningApp {
 	}
 
 	public void login(String initials) throws NoSuchUserException {
-		if (initials.equals("Admin")) {
+		if (initials.equalsIgnoreCase("Admin")) {
 			ActiveUser = admin;
 		} else {
 			ActiveUser = users.parallelStream()
