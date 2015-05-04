@@ -19,22 +19,19 @@ import exceptions.NoSuchUserException;
 import exceptions.OperationNotAllowedException;
 import exceptions.TimeSpanIsNotValidException;
 import exceptions.UserAlreadyPlannedException;
+
 public class Planning extends SampleDataSetup{
 	
 	Timespan timespan1;
 	Timespan timespan2;
 	Timespan timespan3;
+	Timespan timespan4;//Måske unødvendigt? - se 48
+	Timespan timespan5;
 	
 	//Først testes, at den rette liste af uplanlagte medarbejdere dukker op
 	//Dernæst planlægges en medarbejder
 	//Dernæst tjekkes det, at denne er planlagt
 	//Dernæst tjekkes det, at denne ikke kan planlægges igen.
-	
-	@Before
-	public void setPlannedWorks(){
-		
-
-	}
 	
 	public void setUp2() throws NoSuchUserException{
 		planApp.login("Admin");
@@ -43,10 +40,14 @@ public class Planning extends SampleDataSetup{
 		GregorianCalendar gregorianCalendar2 = new GregorianCalendar(2015, 2, 1, 14, 0);
 		GregorianCalendar gregorianCalendar3 = new GregorianCalendar(2015, 2, 1, 12, 0);
 		GregorianCalendar gregorianCalendar4 = new GregorianCalendar(2015, 2, 2, 13, 0);
+		GregorianCalendar gregorianCalendar5 = new GregorianCalendar(2015, 2, 1, 13, 0);
+//		GregorianCalendar gregorianCalandar6 = new GregorianCalendar(2016, 2, 1, 12, 0);
 		//TSpans
 		Timespan timespan1 = new Timespan(gregorianCalendar1, gregorianCalendar2);
 		Timespan timespan2 = new Timespan(gregorianCalendar3, gregorianCalendar2);
 		Timespan timespan3 = new Timespan(gregorianCalendar3, gregorianCalendar4);
+		Timespan timespan4 = new Timespan(gregorianCalendar5, gregorianCalendar2);//Måske unødvendigt?
+		Timespan timespan5 = new Timespan(gregorianCalendar1, gregorianCalendar3);
 		//PlannedWork smækkes ind
 		planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("DaSc", timespan1);
 		planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("SaMu", timespan2);
@@ -58,7 +59,6 @@ public class Planning extends SampleDataSetup{
 		setUp2();
 		planApp.login("ZaBe");
 		
-		
 		ArrayList freePeople = new ArrayList<User>();
 		freePeople = planApp.getAvailableUsers(timespan1);
 		//Tester for, at der returneres alle med undtagelse af to planlagte
@@ -69,6 +69,7 @@ public class Planning extends SampleDataSetup{
 		ArrayList freePeople2 = new ArrayList<User>();
 		freePeople2 = planApp.getAvailableUsers(timespan2);
 		assertEquals(planApp.getNumberOfEmployes()-3,freePeople2.size());
+		assertEquals(planApp.getUserByInitials("IsSt").getPlans().size(), 1);
 		//planApp.logout();
 		}
 	
@@ -127,10 +128,10 @@ public class Planning extends SampleDataSetup{
 	public void testTimeSpanIsValid() throws NoSuchUserException{
 		setUp2();
 		planApp.login("ZaBe");
-		Timespan timespan4 = null;
+		Timespan timespan6 = null;
 		//Tjekker, at timespan-objektet ikke er null
 		try {
-			planApp.getProjectByName("HalfLife3").getActivityByName("Engine").planWork("DaSc", timespan4);
+			planApp.getProjectByName("HalfLife3").getActivityByName("Engine").planWork("DaSc", timespan6);
 		} catch (TimeSpanIsNotValidException e){
 			
 		}
@@ -143,26 +144,39 @@ public class Planning extends SampleDataSetup{
 		}
 		planApp.logout();
 	}
-		
-	@Test
-	public void testNoSuchUser(){
-		setUp2();
-		try {
-			planApp.getProjectByName("HalfLife3").getActivityByName("Engine").planWork("DaSc", timespan2);
-			fail();
-		} catch (NoSuchUserException e){
-			
-		}
-	}
 	
 	@Test
 	public void testTimeSpanIsNotNull(){
 		setUp2();
+		planApp.login("Admin");
+
 		Timespan timespan3 = null;
 		try {
 			planApp.getProjectByName("HalfLife3").getActivityByName("Engine").planWork("DaSc", timespan3);
 		} catch (TimeSpanIsNullException e){
 			
 		}
+	}
+	
+	@Test
+	public void testListsAreCorrect() throws NoSuchUserException{
+		setUp2();
+		planApp.login("Admin");
+		//Først tjekkes at de lister der returneres mht. timeSpans er korrekte
+		//Tjekker at der er to planer i alt fra setup
+		assertEquals(planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getPlans().size(), 2);
+		//Tjekker at der er to personer planlagt undervejs i tidsrummet ml. 9 og 12:
+		assertEquals(planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getPlans(timespan5).size(), 2);
+		//Tjekker at der kun er en person planlagt ml. 13 og 14
+		assertEquals(planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getPlans(timespan4).size(), 1);
+	}
+	
+	@Test
+	public void testDeletePlannedWork() throws NoSuchUserException{
+		setUp2();
+		planApp.login("Admin");
+		planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getPlans(timespan4).get(0).deletePlannedWork();
+		assertEquals(planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getPlans(timespan4).size(), 0);
+
 	}
 }
