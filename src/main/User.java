@@ -10,6 +10,7 @@ public class User implements Comparable<User>{
 	
 	private Set<Report> reports = new TreeSet<Report>();
 	private Set<Activity> plannedActivities = new TreeSet<Activity>();
+	private Set<PlannedWork> plans = new TreeSet<PlannedWork>();
 	
 	public User(String name, String initials){
 		this.name = name;
@@ -25,7 +26,12 @@ public class User implements Comparable<User>{
 	}
 	
 	public boolean isAvailable(Timespan t){
-		return false;
+		for(PlannedWork p : plans){
+			if (p.plansOverlapTimespan(t)){
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	public boolean contains(String key){
@@ -55,5 +61,34 @@ public class User implements Comparable<User>{
 	public boolean hasOverlapingReport(Timespan tempTime) {
 		return reports.parallelStream().anyMatch(R -> R.overlap(tempTime));
 	}
+	
+	public Set<PlannedWork> getPlans(){
+		return plans;
+	}
 
+	public Set<PlannedWork> getPlans(Timespan t){
+		Set<PlannedWork> plansInTimespan = new TreeSet<PlannedWork>();
+		for (PlannedWork p : plans){
+			if (p.plansOverlapTimespan(t)){
+				plansInTimespan.add(p);
+			}
+		}
+		return plansInTimespan;
+	}
+	
+	public void addPlannedWork(PlannedWork plannedWork){
+		plans.add(plannedWork);
+	}
+	
+	public void deletePlannedWork(PlannedWork plannedWork){
+		plans.remove(plannedWork);
+//		int i = 0;
+//		for (PlannedWork p : plans){
+//			if(p.equals(plannedWork)){
+//				plans.remove(i);
+//			}
+//			i++;
+//		}
+	}
+	
 }

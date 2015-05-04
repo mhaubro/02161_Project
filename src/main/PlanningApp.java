@@ -166,5 +166,16 @@ public class PlanningApp {
 
 		return yearString + runningString;
 	}
+	
+	public ArrayList<User> getAvailableUsers(Timespan timespan){
+		ArrayList<User> freePeople = new ArrayList<User>();
+		for (User u : users){
+			if (u.isAvailable(timespan)){
+				freePeople.add(u);
+			}
+		}
+		
+		return freePeople;
+	}
 
 }
