@@ -50,7 +50,7 @@ public class Planning extends SampleDataSetup{
 		//PlannedWork smækkes ind
 		planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("DaSc", timespan1);
 		planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("SaMu", timespan2);
-		//planApp.logout();
+		planApp.logout();
 	}	
 	
 	@Test
@@ -142,5 +142,27 @@ public class Planning extends SampleDataSetup{
 			
 		}
 		planApp.logout();
+	}
+		
+	@Test
+	public void testNoSuchUser(){
+		setUp2();
+		try {
+			planApp.getProjectByName("HalfLife3").getActivityByName("Engine").planWork("DaSc", timespan2);
+			fail();
+		} catch (NoSuchUserException e){
+			
+		}
+	}
+	
+	@Test
+	public void testTimeSpanIsNotNull(){
+		setUp2();
+		Timespan timespan3 = null;
+		try {
+			planApp.getProjectByName("HalfLife3").getActivityByName("Engine").planWork("DaSc", timespan3);
+		} catch (TimeSpanIsNullException e){
+			
+		}
 	}
 }
