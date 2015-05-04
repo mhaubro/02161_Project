@@ -1,23 +1,19 @@
 package main;
 
-public class Report {
+public class Report implements Comparable<Report>{
 
 	private String note;
 	private String id;
 
-	private Timespan timespan;
-	private Activity activity;
-	private User user;
+	final Timespan timespan;
+	final Activity activity;
+	final User user;
 
 	public Report(String n, Timespan t, Activity a, User u) {
 		this.note = n;
 		this.timespan = t;
 		this.activity = a;
 		this.user = u;
-	}
-
-	public Timespan getTime() {
-		return timespan.copy();
 	}
 
 	public Activity getActivity() {
@@ -38,6 +34,19 @@ public class Report {
 
 	public Report copy() {
 		return new Report(note, timespan, activity, user);
+	}
+
+	public boolean overlap(Timespan t) {
+		return timespan.overlap(t);
+	}
+
+	@Override
+	public int compareTo(Report otherReport) {
+		return this.timespan.startTime.compareTo(otherReport.timespan.startTime);
+	}
+
+	public double getReportedTime() {
+		return timespan.getTime();
 	}
 
 }

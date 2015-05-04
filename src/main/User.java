@@ -33,6 +33,8 @@ public class User implements Comparable<User>{
 	}
 	
 	public void addReport(Report r){
+		reports.add(r);
+		System.out.println("Addded a report to " + getInitials());
 		
 	}
 	
@@ -50,9 +52,8 @@ public class User implements Comparable<User>{
 		return null;
 	}
 
-	public boolean overlapingReport(Timespan tempTime) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean hasOverlapingReport(Timespan tempTime) {
+		return reports.parallelStream().anyMatch(R -> R.overlap(tempTime));
 	}
 
 }
