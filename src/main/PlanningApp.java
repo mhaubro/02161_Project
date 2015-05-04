@@ -46,7 +46,7 @@ public class PlanningApp {
 	}
 
 	public void login(String initials) throws NoSuchUserException {
-		if (initials.equals("Admin")) {
+		if (initials.equalsIgnoreCase("Admin")) {
 			ActiveUser = admin;
 		} else {
 			ActiveUser = users.parallelStream()
@@ -165,6 +165,17 @@ public class PlanningApp {
 		}
 
 		return yearString + runningString;
+	}
+	
+	public ArrayList<User> getAvailableUsers(Timespan timespan){
+		ArrayList<User> freePeople = new ArrayList<User>();
+		for (User u : users){
+			if (u.isAvailable(timespan)){
+				freePeople.add(u);
+			}
+		}
+		
+		return freePeople;
 	}
 
 }

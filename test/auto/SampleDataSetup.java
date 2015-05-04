@@ -82,9 +82,9 @@ public class SampleDataSetup {
 						new GregorianCalendar(2015, 8, 2)), 
 				20);
 		
-		planApp.getProjectByName("HalfLife 3").getActivityByName("Design").planWork("DaSc",new Timespan(
-						new GregorianCalendar(2015, 5, 3,12,30,0), 
-						new GregorianCalendar(2015, 8, 2,16,0,0)));
+//		planApp.getProjectByName("HalfLife 3").getActivityByName("Design").planWork("DaSc",new Timespan(
+//						new GregorianCalendar(2015, 5, 3,12,30,0), 
+//						new GregorianCalendar(2015, 8, 2,16,0,0)));
 		
 		planApp.logout();
 
