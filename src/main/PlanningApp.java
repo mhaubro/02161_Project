@@ -92,15 +92,14 @@ public class PlanningApp {
 
 		if (!users.parallelStream().anyMatch(u -> u.getInitials().equalsIgnoreCase(userInitials)))
 			throw new NoSuchUserException("Cant find user by the initials: " + userInitials);
-		
+
 		if (!isSuperByInitials(this.ActiveUser.getInitials()))
 			throw new OperationNotAllowedException(this.ActiveUser.getInitials() + " is not a superuser");
-		
 
 		String projectNumber = getProjectNumber();
 		User user = getUserByInitials(userInitials);
 		projects.add(new Project(name, projectNumber, user, this));
-		
+
 		this.projectRunningNumber++;
 
 		System.out.println("Added Project: name = " + name + " | runningNumber =  " + projectNumber + " | user = "
@@ -111,7 +110,7 @@ public class PlanningApp {
 	public void addActivity(String name, String description, Timespan timespan, int BudgettetTime)
 			throws OperationNotAllowedException {
 
-		activities.add(new Activity(name, description, timespan, BudgettetTime));
+		activities.add(new Activity(name, description, timespan, null, this, BudgettetTime));
 	}
 
 	public void logout() {

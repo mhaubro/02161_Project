@@ -6,14 +6,14 @@ import exceptions.NoSuchUserException;
 import exceptions.OperationNotAllowedException;
 
 public class Project implements Comparable<Project> {
-	
+
 	private ArrayList<Activity> activities;
 	private String name;
 	private String id;
 	private PlanningApp planApp;
 	private User projectLeader;
-	
-	public Project(String name, String id, User projectLeader, PlanningApp planApp){
+
+	public Project(String name, String id, User projectLeader, PlanningApp planApp) {
 		this.planApp = planApp;
 		this.name = name;
 		this.id = id;
@@ -24,8 +24,8 @@ public class Project implements Comparable<Project> {
 	public String getID() {
 		return new String(id);
 	}
-	
-	public String getName(){
+
+	public String getName() {
 		return name;
 	}
 
@@ -33,9 +33,9 @@ public class Project implements Comparable<Project> {
 		// TODO create the real followup
 		return "this is a followUp test message";
 	}
-	
-	public boolean contains(String key){
-		if (name.contains(key) || id.contains(key)){
+
+	public boolean contains(String key) {
+		if (name.contains(key) || id.contains(key)) {
 			return true;
 		}
 		return false;
@@ -46,21 +46,26 @@ public class Project implements Comparable<Project> {
 		return this.id.compareTo(p.getID());
 	}
 
-	public void addActivity(String name, String description, Timespan timespan, int budgettetTime) throws OperationNotAllowedException {
-		//  
-		if (planApp.getActiveUser().equals(this.projectLeader)|| planApp.isSuperByInitials(planApp.getActiveUser().getInitials())){
-			Activity newAct = new Activity(name, description, timespan, this, budgettetTime);
+	public void addActivity(String name, String description, Timespan timespan, int budgettetTime)
+			throws OperationNotAllowedException {
+		//
+		if (getActiveUser().equals(this.projectLeader) || isActiveUserSuperuser()) {
+			Activity newAct = new Activity(name, description, timespan, this, planApp, budgettetTime);
 			activities.add(newAct);
 		} else {
 			throw new OperationNotAllowedException("Kun projektlederen kan oprette aktiviteter");
 		}
-		
+
+	}
+
+	private boolean isActiveUserSuperuser() throws OperationNotAllowedException {
+		return planApp.isSuperByInitials(getActiveUser().getInitials());
 	}
 
 	public Activity getActivityByName(String name) {
-		// 
-		for (Activity activity : activities){
-			if (activity.getName().equalsIgnoreCase(name)){
+		//
+		for (Activity activity : activities) {
+			if (activity.getName().equalsIgnoreCase(name)) {
 				return activity;
 			}
 		}
@@ -71,13 +76,13 @@ public class Project implements Comparable<Project> {
 		return this.projectLeader;
 	}
 
-	public int getNumberOfActivities(){//Metode brugt til JUnit-tests
+	public int getNumberOfActivities() {// Metode brugt til JUnit-tests
 		return activities.size();
 	}
-	
-	public boolean containsActivity(String name){
-		for (Activity activity : activities){
-			if (activity.getName().equalsIgnoreCase(name)){
+
+	public boolean containsActivity(String name) {
+		for (Activity activity : activities) {
+			if (activity.getName().equalsIgnoreCase(name)) {
 				return true;
 			}
 		}
@@ -85,13 +90,20 @@ public class Project implements Comparable<Project> {
 	}
 
 	public void switchProjectLeader(String initials) throws OperationNotAllowedException, NoSuchUserException {
-		User activeUser = planApp.getActiveUser();
-		if (!this.projectLeader.equals(activeUser) && !planApp.isSuperByInitials(activeUser.getInitials()))
-			throw new OperationNotAllowedException("the active user is not projectleader [activeUser = " + planApp.getActiveUser().getInitials() + " | ProjectLeader = " + this.projectLeader.getInitials());
-		
+		User activeUser = getActiveUser();
+		if (!this.projectLeader.equals(activeUser) && !isActiveUserSuperuser())
+			throw new OperationNotAllowedException("the active user is not projectleader [activeUser = "
+					+ planApp.getActiveUser().getInitials() + " | ProjectLeader = " + this.projectLeader.getInitials());
+
 		User newProjectLeader = planApp.getUserByInitials(initials);
-		
+
 		this.projectLeader = newProjectLeader;
+	}
+
+	private User getActiveUser() throws OperationNotAllowedException {
+		if (planApp == null)
+			throw new OperationNotAllowedException("cant return active user, No planningApp linked to this activity");
+		return planApp.getActiveUser();
 	}
 
 }

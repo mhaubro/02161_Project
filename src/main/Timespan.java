@@ -4,32 +4,34 @@ import java.util.Calendar;
 
 public class Timespan {
 	
-	Calendar startTime, finishTime;
+	final Calendar startTime, finishTime;
 	
 	public Timespan(Calendar start, Calendar finish){
 		this.startTime = start;
 		this.finishTime = finish;
 	}
 	
-	public Calendar getStart(){
-		return (Calendar) startTime.clone();
-	}
-	
-	public Calendar getFinish(){
-		return (Calendar) finishTime.clone();
-	}
-	
 	public boolean overlap(Timespan t){
+		
+		
+		if (this.startTime.compareTo(t.finishTime) <= 0 && this.startTime.compareTo(t.startTime) >= 0)
+			return true;
+		if (this.finishTime.compareTo(t.finishTime) <= 0 && this.finishTime.compareTo(t.startTime) >= 0)
+			return true;
+		
+		if (t.startTime.compareTo(this.finishTime) <= 0 && t.startTime.compareTo(this.startTime) >= 0)
+			return true;
+		if (t.finishTime.compareTo(this.finishTime) <= 0 && t.finishTime.compareTo(this.startTime) >= 0)
+			return true;
+		
 		return false;
 	}
 	
-	public int getTime(){
-		return 0;
+	public double getTime(){
+		long diff = finishTime.getTimeInMillis() - startTime.getTimeInMillis();
+		double diffInHours = (double) diff / (1000 * 60 * 60);
+		
+		return diffInHours;
 	}
-
-	public Timespan copy() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 }

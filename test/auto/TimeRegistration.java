@@ -17,25 +17,25 @@ import exceptions.OverlapException;
 public class TimeRegistration extends SampleDataSetup {
 
 	@Test
-	public void testMain() throws Exception{
+	public void testMain() throws Exception {
 		// login as a normal user
 		planApp.login("DaSc");
 
 		Timespan tempTime = new Timespan(new GregorianCalendar(2015, 5, 3, 12, 30, 0), new GregorianCalendar(2015, 5,
 				3, 16, 0, 0));
 
-		assertFalse(planApp.getActiveUser().overlapingReport(tempTime));
-		assertEquals(0d, planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getRegistretTime(),0);
+		assertFalse(planApp.getActiveUser().hasOverlapingReport(tempTime));
+		assertEquals(0d, planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getRegistretTime(), 0);
 
 		planApp.getProjectByName("HalfLife 3").getActivityByName("Engine")
 				.registreTime(tempTime, "This is some serius work...");
 
-		assertTrue(planApp.getActiveUser().overlapingReport(tempTime));
-		assertEquals(3.5d, planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getRegistretTime(),0);
+		assertTrue(planApp.getActiveUser().hasOverlapingReport(tempTime));
+		assertEquals(3.5d, planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getRegistretTime(), 0);
 	}
 
 	@Test
-	public void testOverlapingReport() throws Exception{
+	public void testOverlapingReport() throws Exception {
 
 		// login as a normal user
 		planApp.login("DaSc");
@@ -45,14 +45,14 @@ public class TimeRegistration extends SampleDataSetup {
 		Timespan overlappingTime = new Timespan(new GregorianCalendar(2015, 5, 3, 15, 0, 0), new GregorianCalendar(
 				2015, 5, 3, 16, 0, 0));
 
-		assertFalse(planApp.getActiveUser().overlapingReport(tempTime));
-		assertEquals(0d, planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getRegistretTime(),0);
+		assertFalse(planApp.getActiveUser().hasOverlapingReport(tempTime));
+		assertEquals(0d, planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getRegistretTime(), 0);
 
 		planApp.getProjectByName("HalfLife 3").getActivityByName("Engine")
 				.registreTime(tempTime, "This is some serius work...");
 
-		assertTrue(planApp.getActiveUser().overlapingReport(tempTime));
-		assertEquals(3.5d, planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getRegistretTime(),0);
+		assertTrue(planApp.getActiveUser().hasOverlapingReport(tempTime));
+		assertEquals(3.5d, planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getRegistretTime(), 0);
 
 		try {
 			// try to register time in antoher activity to be sure that it is in
@@ -62,15 +62,15 @@ public class TimeRegistration extends SampleDataSetup {
 			fail("");
 		} catch (OverlapException e) {
 			assertTrue(e.getMessage().equals(
-					"the registered timespan, is overlapping an existing report for this user."));
+					"Cant register time, the active user has a overlapping report"));
 		}
 
-		assertTrue(planApp.getActiveUser().overlapingReport(tempTime));
-		assertEquals(3.5d, planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getRegistretTime(),0);
+		assertTrue(planApp.getActiveUser().hasOverlapingReport(tempTime));
+		assertEquals(3.5d, planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getRegistretTime(), 0);
 	}
 
 	@Test
-	public void testUserIsNotLoggedIn() throws Exception{
+	public void testUserIsNotLoggedIn() throws Exception {
 
 		// making sure there isnt a user logged in
 		planApp.logout();
@@ -78,8 +78,8 @@ public class TimeRegistration extends SampleDataSetup {
 		Timespan tempTime = new Timespan(new GregorianCalendar(2015, 5, 3, 12, 30, 0), new GregorianCalendar(2015, 5,
 				3, 16, 0, 0));
 
-		//assertFalse(planApp.getActiveUser().overlapingReport(tempTime));
-		assertEquals(0d, planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getRegistretTime(),0);
+		// assertFalse(planApp.getActiveUser().overlapingReport(tempTime));
+		assertEquals(0d, planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getRegistretTime(), 0);
 
 		try {
 			planApp.getProjectByName("HalfLife 3").getActivityByName("Engine")
@@ -89,19 +89,23 @@ public class TimeRegistration extends SampleDataSetup {
 			assertTrue(e.getMessage().equals("cant register time, when no user is logged in."));
 		}
 
-		//assertTrue(planApp.getActiveUser().overlapingReport(tempTime));
-		assertEquals(3.5d, planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getRegistretTime(),0);
-		
+		// assertTrue(planApp.getActiveUser().overlapingReport(tempTime));
+		assertEquals(0d, planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getRegistretTime(), 0.01d);
+
 	}
 
 	@Test
-	public void testTimespanIsNull() throws Exception{
+	public void testTimespanIsNull() throws Exception {
+
+		// login as a normal user
+		planApp.login("DaSc");
+
 		try {
 			planApp.getProjectByName("HalfLife 3").getActivityByName("Engine")
-			.registreTime(null, "This is some serius work...");
+					.registreTime(null, "This is some serius work...");
 			fail("cant register time when the timespan is empty");
 		} catch (OperationNotAllowedException e) {
-			assertTrue(e.getMessage().equals("cant register time when the timespan is null"));
+			assertEquals("Cant register time, the given timespan is null", e.getMessage());
 		}
 	}
 
