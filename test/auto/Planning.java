@@ -121,6 +121,8 @@ public class Planning extends SampleDataSetup{
 		}
 		planApp.logout();
 	}
+	
+	
 	@Test //Tester at timeSpan er gyldigt
 	public void testTimeSpanIsValid() throws NoSuchUserException{
 		setUp2();
