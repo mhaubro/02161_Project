@@ -2,7 +2,9 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Random;
 import java.util.TreeSet;
 
@@ -167,15 +169,15 @@ public class PlanningApp {
 		return yearString + runningString;
 	}
 	
-	public ArrayList<User> getAvailableUsers(Timespan timespan){
-		ArrayList<User> freePeople = new ArrayList<User>();
+	public List<User> getAvailableUsers(Timespan timespan){
+		List<User> freePeople = new ArrayList<User>();
 		for (User u : users){
 			if (u.isAvailable(timespan)){
 				freePeople.add(u);
 			}
 		}
 		
-		return freePeople;
+		return Collections.unmodifiableList(freePeople);
 	}
 
 }
