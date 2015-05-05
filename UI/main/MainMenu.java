@@ -8,17 +8,21 @@ public class MainMenu extends Menu {
 
 	public MainMenu(JFrameUserInterface UI) {
 		super(UI);
-		
+
 		menuString += "Main Menu:\n";
-		
+
 		if (UI.planApp.getActiveUser() != null) {
 			menuString += "Active User: " + UI.planApp.getActiveUser().getName() + "\n";
 		}
 
 		menuString += ("" +
-				"Write a number for matching function:\n"+
+				"Write a number for matching function:\n" +
 				"  1 = Login\n" +
 				"  2 = Logout\n" +
+				"  3 = Register Time\n" +
+				"  4 = Plan Work\n" +
+				"  5 = Manage Projects\n" +
+				"  6 = Magage Users\n" +
 				"  E = Exit\n");
 	}
 
@@ -32,6 +36,9 @@ public class MainMenu extends Menu {
 		}
 		if (input.equalsIgnoreCase("2")) {
 			return new LogoutMenu(UI);
+		}
+		if (input.equalsIgnoreCase("3")) {
+			return new RegisterTimeMenu(UI);
 		}
 		throw new InputWrongFormatException("The input was not recognized");
 	}

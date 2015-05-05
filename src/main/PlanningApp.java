@@ -2,9 +2,16 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.TreeSet;
+import java.util.function.IntFunction;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import sun.util.calendar.BaseCalendar.Date;
 import exceptions.NoSuchUserException;
@@ -176,6 +183,24 @@ public class PlanningApp {
 		}
 		
 		return freePeople;
+	}
+	
+	public List<User> getUsers(){
+		return users.parallelStream().sorted().collect(Collectors.toList());
+	}
+
+	public ArrayList<Activity> getAllActivities() {
+		ArrayList<Activity> returnList = new ArrayList<Activity>();
+		
+		for (Project P : projects){
+			returnList.addAll(P.getAllActivities());
+		}
+		
+		for (Activity A : activities){
+			returnList.add(A);
+		}
+		
+		return returnList;
 	}
 
 }

@@ -1,7 +1,9 @@
 package main;
 
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 public class User implements Comparable<User>{
 	
@@ -89,6 +91,10 @@ public class User implements Comparable<User>{
 //			}
 //			i++;
 //		}
+	}
+	
+	public List<Activity> getActivities(){
+		return plannedActivities.parallelStream().sorted().collect(Collectors.toList());
 	}
 	
 }

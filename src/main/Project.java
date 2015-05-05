@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import exceptions.NoSuchUserException;
 import exceptions.OperationNotAllowedException;
@@ -104,6 +105,16 @@ public class Project implements Comparable<Project> {
 		if (planApp == null)
 			throw new OperationNotAllowedException("cant return active user, No planningApp linked to this activity");
 		return planApp.getActiveUser();
+	}
+
+	public ArrayList<Activity> getAllActivities() {
+		ArrayList<Activity> returnList = new ArrayList<Activity>();
+		
+		for (Activity A: activities){
+			returnList.add(A);
+		}
+		
+		return returnList;
 	}
 
 }

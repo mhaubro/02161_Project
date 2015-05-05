@@ -30,7 +30,7 @@ public class JFrameUserInterface extends JFrame implements Observer {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setPreferredSize(new Dimension(600, 800));
 		
-		Font font = new Font(Font.SERIF, Font.BOLD,14);
+		Font font = new Font(Font.MONOSPACED, Font.BOLD,14);
 
 		TextFieldListener tfListener = new TextFieldListener();
 		input.addActionListener(tfListener);
