@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import main.Activity;
 import main.PlannedWork;
@@ -60,14 +61,14 @@ public class Planning extends SampleDataSetup{
 		setUp2();
 		planApp.login("ZaBe");
 		
-		ArrayList freePeople = new ArrayList<User>();
+		List freePeople = new ArrayList<User>();
 		freePeople = planApp.getAvailableUsers(timespan1);
 		//Tester for, at der returneres alle med undtagelse af to planlagte
 		assertEquals(planApp.getNumberOfEmployes()-2,freePeople.size());
 		//Planlægger en tredje person
 		planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("IsSt", timespan2);
 		//Tester, at der er tre personer optaget i timespan2
-		ArrayList freePeople2 = new ArrayList<User>();
+		List freePeople2 = new ArrayList<User>();
 		freePeople2 = planApp.getAvailableUsers(timespan2);
 		assertEquals(planApp.getNumberOfEmployes()-3,freePeople2.size());
 		assertEquals(planApp.getUserByInitials("IsSt").getPlans().size(), 1);
@@ -82,7 +83,7 @@ public class Planning extends SampleDataSetup{
 		//Planlægger
 		planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("GaWo", timespan2);
 		//Undersøger hvor mange der er ledige. Der er planlagt to i setUp2, og herved en 3.
-		ArrayList freePeople = new ArrayList<User>();
+		List freePeople = new ArrayList<User>();
 		freePeople = planApp.getAvailableUsers(timespan1);
 		assertEquals(planApp.getNumberOfEmployes()-3,freePeople.size());
 		//planApp.logout();
@@ -174,5 +175,6 @@ public class Planning extends SampleDataSetup{
 		testP.deletePlannedWork();
 		//Tjekker at der ingen elementer er
 		assertEquals(0, planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getPlans(timespan4).size());
+		assertEquals(0, planApp.getUserByInitials("DaSc").getPlans(timespan4).size());
 	}
 }
