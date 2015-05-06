@@ -57,7 +57,7 @@ public class PlanningApp {
 			ActiveUser = admin;
 		} else {
 			ActiveUser = users.parallelStream()
-					.filter(u -> u.getInitials().equals(initials))
+					.filter(u -> u.getInitials().equalsIgnoreCase(initials))
 					.findFirst().orElseThrow(() -> new NoSuchUserException("Cant login as a user that does not exist"));
 		}
 	}
@@ -201,6 +201,19 @@ public class PlanningApp {
 		}
 		
 		return returnList;
+	}
+	
+	public Activity getActivityByName(String input){
+		for (Project P : projects){
+			Activity a = P.getActivityByName(input);
+			if (a!=null)
+				return a;
+		}
+		for (Activity A : activities){
+			if (A.getName().equalsIgnoreCase(input))
+				return A;
+		}
+		return null;
 	}
 
 }

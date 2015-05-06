@@ -10,7 +10,7 @@ import exceptions.OverlapException;
 import exceptions.TimeSpanIsNotValidException;
 import exceptions.UserAlreadyPlannedException;
 
-public class Activity {
+public class Activity implements Comparable<Activity>{
 
 	private String name;
 	private String task;
@@ -69,6 +69,10 @@ public class Activity {
 		
 		reports.add(newReport);
 		activeUser.addReport(newReport);
+		
+		if (!users.contains(activeUser)){
+			users.add(activeUser);
+		}
 
 	}
 
@@ -119,6 +123,11 @@ public class Activity {
 //				plans.remove(i);
 //			}
 //		}
+	}
+
+	@Override
+	public int compareTo(Activity otherA) {
+		return this.getName().compareTo(otherA.getName());
 	}
 	
 }

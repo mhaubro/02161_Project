@@ -36,7 +36,7 @@ public class PlanAppUserInterface extends JFrameUserInterface {
 	}
 	
 	public static void main(String[] args) {
-		PlanningApp planApp = new PlanningApp();
+		PlanningApp planApp = new TestPlanningApp();
 		JFrameUserInterface UI = new PlanAppUserInterface(planApp);
 	}
 	

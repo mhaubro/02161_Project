@@ -44,6 +44,10 @@ public class User implements Comparable<User>{
 		reports.add(r);
 		System.out.println("Addded a report to " + getInitials());
 		
+		if (!plannedActivities.contains(r.activity)){
+			plannedActivities.add(r.activity);
+		}
+		
 	}
 	
 	public void addActivity(Activity a){
