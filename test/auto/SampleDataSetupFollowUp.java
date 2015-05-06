@@ -140,11 +140,11 @@ public class SampleDataSetupFollowUp extends SampleDataSetup{
 				new GregorianCalendar(2015, 6, 3, 8, 0), 
 				new GregorianCalendar(2015, 6, 3, 16, 0)));
 		planApp.getProjectByName("HalfLife 3").getActivityByName("Design").planWork("DaSc", new Timespan(
-				new GregorianCalendar(2015, 6, 3, 8, 0), 
-				new GregorianCalendar(2015, 6, 3, 16, 0)));
-		planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("DaSc", new Timespan(
 				new GregorianCalendar(2015, 6, 4, 8, 0), 
 				new GregorianCalendar(2015, 6, 4, 16, 0)));
+		planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("DaSc", new Timespan(
+				new GregorianCalendar(2015, 6, 5, 8, 0), 
+				new GregorianCalendar(2015, 6, 5, 16, 0)));
 		//Registrerer ZaBe
 		planApp.getProjectByName("HalfLife 3").getActivityByName("Engine")
 		.registreTime(new Timespan(

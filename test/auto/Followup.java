@@ -45,6 +45,7 @@ public class Followup extends SampleDataSetupFollowUp{
 		String exceptedBigFollowup = expectedSmallFollowup + str10 + str11 + str12 + str13 + str14 + str15;
 		//Igen, equalsIgnoreCase?
 		assertTrue(bigFollowup.equals(exceptedBigFollowup));
+		//System.out.println(exceptedBigFollowup);
 	}
 
 	@Test //Skal det være muligt som projektleder?
