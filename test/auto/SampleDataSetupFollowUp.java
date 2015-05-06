@@ -83,6 +83,10 @@ public class SampleDataSetupFollowUp extends SampleDataSetup{
 		Timespan timespanFollowUp1 = new Timespan(
 				new GregorianCalendar(2015, 6, 3, 8, 0), 
 				new GregorianCalendar(2015, 6, 3, 16, 0));
+		
+		
+		
+		
 		//Der tilføjes arbejde til projektet
 		planApp.logout();
 		planApp.login("DaSc");
@@ -128,7 +132,7 @@ public class SampleDataSetupFollowUp extends SampleDataSetup{
 		planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("ZaBe", new Timespan(
 				new GregorianCalendar(2015, 6, 6, 8, 0), 
 				new GregorianCalendar(2015, 6, 6, 12, 0)));
-		planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("GaWo", new Timespan(
+		planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("ZaBe", new Timespan(
 				new GregorianCalendar(2015, 6, 12, 8, 0), 
 				new GregorianCalendar(2015, 6, 12, 12, 0)));
 		//Planlægger DaSc
