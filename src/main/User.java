@@ -1,5 +1,8 @@
 package main;
 
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -12,7 +15,7 @@ public class User implements Comparable<User>{
 	
 	private Set<Report> reports = new TreeSet<Report>();
 	private Set<Activity> plannedActivities = new TreeSet<Activity>();
-	private Set<PlannedWork> plans = new TreeSet<PlannedWork>();
+	private List<PlannedWork> plans = new ArrayList<PlannedWork>();
 	
 	public User(String name, String initials){
 		this.name = name;
@@ -68,18 +71,13 @@ public class User implements Comparable<User>{
 		return reports.parallelStream().anyMatch(R -> R.overlap(tempTime));
 	}
 	
-	public Set<PlannedWork> getPlans(){
-		return plans;
+	public List<PlannedWork> getPlans(){
+		return Collections.unmodifiableList(plans);
 	}
 
-	public Set<PlannedWork> getPlans(Timespan t){
-		Set<PlannedWork> plansInTimespan = new TreeSet<PlannedWork>();
-		for (PlannedWork p : plans){
-			if (p.plansOverlapTimespan(t)){
-				plansInTimespan.add(p);
-			}
-		}
-		return plansInTimespan;
+	public List<PlannedWork> getPlans(Timespan t){
+		return Collections.unmodifiableList(plans.parallelStream().filter(p -> p.plansOverlapTimespan(t)).collect(Collectors.toList()));
+
 	}
 	
 	public void addPlannedWork(PlannedWork plannedWork){
@@ -88,13 +86,7 @@ public class User implements Comparable<User>{
 	
 	public void deletePlannedWork(PlannedWork plannedWork){
 		plans.remove(plannedWork);
-//		int i = 0;
-//		for (PlannedWork p : plans){
-//			if(p.equals(plannedWork)){
-//				plans.remove(i);
-//			}
-//			i++;
-//		}
+
 	}
 	
 	public List<Activity> getActivities(){

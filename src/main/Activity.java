@@ -1,6 +1,8 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -20,9 +22,9 @@ public class Activity implements Comparable<Activity>{
 	private PlanningApp planApp;
 	private Timespan timespan;
 	private Project project;
-	private ArrayList<User> users = new ArrayList<User>(); // OBSOBSOBS
-	private ArrayList<Report> reports = new ArrayList<Report>(); // OBSOBSOBS
-	private ArrayList<PlannedWork> plans = new ArrayList<PlannedWork>(); // OBSOBSOBS
+	private ArrayList<User> users = new ArrayList<User>(); 
+	private ArrayList<Report> reports = new ArrayList<Report>(); 
+	private ArrayList<PlannedWork> plans = new ArrayList<PlannedWork>(); 
 
 	public Activity(String name, String task, Timespan t, Project p, PlanningApp planApp, int budgettetTime) {
 		this.name = name;
@@ -100,29 +102,22 @@ public class Activity implements Comparable<Activity>{
 		return planApp.getUserByInitials(userID);
 	}
 	
-	public ArrayList<PlannedWork> getPlans(){
-		return plans;
+	public List<PlannedWork> getPlans(){
+		return Collections.unmodifiableList(plans);
 	}
 
-	public ArrayList<PlannedWork> getPlans(Timespan t){
-		ArrayList<PlannedWork>plansInTimespan = new ArrayList<PlannedWork>();
+	public List<PlannedWork> getPlans(Timespan t){
+		List<PlannedWork>plansInTimespan = new ArrayList<PlannedWork>();
 		for(PlannedWork p : plans){
 			if(p.plansOverlapTimespan(t)){
 				plansInTimespan.add(p);
 			}
 		}
-		return plansInTimespan;
+		return Collections.unmodifiableList(plansInTimespan);
 	}
 	
 	public void deletePlannedWork(PlannedWork plannedWork){
-		//int i = 0;
 		plans.remove(plannedWork);
-//		for(int i = 0; i < plans.size(); i++){
-//			if (plans.get(i).equals(plannedWork)){
-//				System.out.println("Der er tale om et plannedWork der slettes");
-//				plans.remove(i);
-//			}
-//		}
 	}
 
 	@Override

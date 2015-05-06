@@ -174,15 +174,15 @@ public class PlanningApp {
 		return yearString + runningString;
 	}
 	
-	public ArrayList<User> getAvailableUsers(Timespan timespan){
-		ArrayList<User> freePeople = new ArrayList<User>();
+	public List<User> getAvailableUsers(Timespan timespan){
+		List<User> freePeople = new ArrayList<User>();
 		for (User u : users){
 			if (u.isAvailable(timespan)){
 				freePeople.add(u);
 			}
 		}
 		
-		return freePeople;
+		return Collections.unmodifiableList(freePeople);
 	}
 	
 	public List<User> getUsers(){
