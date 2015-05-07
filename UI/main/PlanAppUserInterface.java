@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Observable;
+
 import exceptions.InputWrongFormatException;
 
 public class PlanAppUserInterface extends JFrameUserInterface {
@@ -34,8 +36,15 @@ public class PlanAppUserInterface extends JFrameUserInterface {
 	}
 	
 	public static void main(String[] args) {
-		PlanningApp planApp = new PlanningApp();
+		PlanningApp planApp = new TestPlanningApp();
 		JFrameUserInterface UI = new PlanAppUserInterface(planApp);
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		super.update(o, arg);
+		
+		printMenu();
 	}
 
 }

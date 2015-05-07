@@ -8,6 +8,8 @@ public class LoginMenu extends Menu {
 	String menuString = "";
 	String printString = "";
 
+	private boolean printUsers = false;
+
 	int state = 0;
 
 	public LoginMenu(JFrameUserInterface UI) {
@@ -15,9 +17,9 @@ public class LoginMenu extends Menu {
 
 		menuString += "Login Menu:\n" +
 				"Write your initials for login\n" +
-				"L = list\n" +
+				"L = toogle list\n" +
 				"B = back\n";
-		
+
 		printString = menuString;
 	}
 
@@ -27,10 +29,18 @@ public class LoginMenu extends Menu {
 		if (state == 0) {
 			if (input.equalsIgnoreCase("b"))
 				return new MainMenu(UI);
+			if (input.equalsIgnoreCase("l")) {
+				if (printUsers) {
+					printUsers = false;
+				} else {
+					printUsers = true;
+				}
+				return this;
+			}
 			try {
 				UI.planApp.login(input);
 				printString = menuString + "  You are now logged in as: " + UI.planApp.getActiveUser().getName()
-						+ "\nPress enter to continue";
+						+ "\nPress enter to continue\n";
 				state = 1;
 			} catch (NoSuchUserException e) {
 				printString = menuString +
@@ -46,7 +56,23 @@ public class LoginMenu extends Menu {
 
 	@Override
 	public String toString() {
-		return printString;
+		if (printUsers) {
+			return printString + getUsers();
+		} else {
+			return printString;
+		}
+
+	}
+
+	private String getUsers() {
+		String users = "\n\nInitials | Name\n" +
+				"   Admin | Admin Administrator\n";
+
+		for (User u : UI.planApp.getUsers()) {
+			users += "    " + u.getInitials() + " | " + u.getName() + "\n";
+		}
+
+		return users;
 	}
 
 }

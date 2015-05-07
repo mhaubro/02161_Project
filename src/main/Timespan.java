@@ -2,11 +2,15 @@ package main;
 
 import java.util.Calendar;
 
+import exceptions.OperationNotAllowedException;
+
 public class Timespan {
 	
 	final Calendar startTime, finishTime;
 	
-	public Timespan(Calendar start, Calendar finish){
+	public Timespan(Calendar start, Calendar finish) throws OperationNotAllowedException{
+		if (start.after(finish))
+			throw new OperationNotAllowedException("cant make a negative timespan");
 		this.startTime = start;
 		this.finishTime = finish;
 	}
@@ -30,6 +34,14 @@ public class Timespan {
 		double diffInHours = (double) diff / (1000 * 60 * 60);
 		
 		return diffInHours;
+	}
+	
+	public String toString(){
+		return "from " + getCalendarString(startTime) + " to " + getCalendarString(finishTime);
+	}
+	
+	private String getCalendarString(Calendar cal){
+		return "(" + cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.DAY_OF_MONTH) + "/" + (cal.get(Calendar.MONTH)+1) + ") " + cal.get(Calendar.HOUR_OF_DAY) + ":"+ cal.get(Calendar.MINUTE);
 	}
 	
 }

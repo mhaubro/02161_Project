@@ -2,12 +2,16 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.function.IntFunction;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import sun.util.calendar.BaseCalendar.Date;
 import exceptions.NoSuchUserException;
@@ -50,7 +54,7 @@ public class PlanningApp {
 			ActiveUser = admin;
 		} else {
 			ActiveUser = users.parallelStream()
-					.filter(u -> u.getInitials().equals(initials))
+					.filter(u -> u.getInitials().equalsIgnoreCase(initials))
 					.findFirst().orElseThrow(() -> new NoSuchUserException("Cant login as a user that does not exist"));
 		}
 	}
@@ -192,6 +196,37 @@ public class PlanningApp {
 		}
 		
 		return Collections.unmodifiableList(freePeople);
+	}
+	
+	public List<User> getUsers(){
+		return users.parallelStream().sorted().collect(Collectors.toList());
+	}
+
+	public ArrayList<Activity> getAllActivities() {
+		ArrayList<Activity> returnList = new ArrayList<Activity>();
+		
+		for (Project P : projects){
+			returnList.addAll(P.getAllActivities());
+		}
+		
+		for (Activity A : activities){
+			returnList.add(A);
+		}
+		
+		return returnList;
+	}
+	
+	public Activity getActivityByName(String input){
+		for (Project P : projects){
+			Activity a = P.getActivityByName(input);
+			if (a!=null)
+				return a;
+		}
+		for (Activity A : activities){
+			if (A.getName().equalsIgnoreCase(input))
+				return A;
+		}
+		return null;
 	}
 
 }

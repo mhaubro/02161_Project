@@ -186,5 +186,14 @@ public class Project implements Comparable<Project> {
 			throw new OperationNotAllowedException("cant return active user, No planningApp linked to this activity");
 		return planApp.getActiveUser();
 	}
-
+	
+	public ArrayList<Activity> getAllActivities() {
+		ArrayList<Activity> returnList = new ArrayList<Activity>();
+		
+		for (Activity A: activities){
+			returnList.add(A);
+		}
+		
+		return returnList;
+	}
 }

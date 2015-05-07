@@ -1,11 +1,11 @@
 package main;
 
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class User implements Comparable<User>{
@@ -44,6 +44,10 @@ public class User implements Comparable<User>{
 		reports.add(r);
 		System.out.println("Addded a report to " + getInitials());
 		
+		if (!plannedActivities.contains(r.activity)){
+			plannedActivities.add(r.activity);
+		}
+		
 	}
 	
 //	public void addActivity(Activity a){
@@ -76,6 +80,10 @@ public class User implements Comparable<User>{
 	public void deletePlannedWork(PlannedWork plannedWork){
 		plans.remove(plannedWork);
 
+	}
+	
+	public List<Activity> getActivities(){
+		return plannedActivities.parallelStream().sorted().collect(Collectors.toList());
 	}
 	
 }

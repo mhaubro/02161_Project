@@ -67,6 +67,10 @@ public class Activity {
 		
 		reports.add(newReport);
 		activeUser.addReport(newReport);
+		
+		if (!users.contains(activeUser)){
+			users.add(activeUser);
+		}
 	}
 
 	public double getRegistretTime() {
@@ -92,8 +96,6 @@ public class Activity {
 			throw new OperationNotAllowedException("cant return active user, No planningApp linked to this activity");
 		return planApp.getUserByInitials(userID);
 	}
-	
-
 
 	public List<PlannedWork> getPlans(Timespan t){
 		List<PlannedWork>plansInTimespan = new ArrayList<PlannedWork>();
