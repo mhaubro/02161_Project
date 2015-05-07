@@ -56,29 +56,29 @@ public class PlanWorkMenu extends Menu {
 		} else if (menuState == 2) {
 			try {
 				activity = UI.planApp.getActivityByName(input);
+				if (activity == null){
+					errorString = "could not regignize the activity: " + input;
+					return this;
+				}
 				activity.planWork(user.getInitials(), timespan);
 				menuState = 3;
 				return this;
 			} catch (NoSuchUserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				errorString = e.getMessage();
+				return this;
 			} catch (OperationNotAllowedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				errorString = e.getMessage();
+				return this;
 			} catch (UserAlreadyPlannedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				errorString = e.getMessage();
+				return this;
 			} catch (TimeSpanIsNotValidException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NullPointerException e) {
-				errorString = "could not regignize the activity";
+				errorString = e.getMessage();
+				return this;
 			}
 		} else {
 			return new MainMenu(UI);
 		}
-
-		throw new InputWrongFormatException("Cant reconize input");
 	}
 
 	@Override
@@ -92,10 +92,10 @@ public class PlanWorkMenu extends Menu {
 
 		case 1:
 			return menuString + "\n"
-					+ "Enter the initials of the user you wish to plan work for:\n" + getListString();
+					+ "Enter the initials of the user you wish to plan work for:\n" + getListString() + "\n" + errorString;
 		case 2:
 			return menuString + "\n"
-					+ "Enter the name of the activity you wish to plan the user for:\n" + getActivities();
+					+ "Enter the name of the activity you wish to plan the user for:\n" + getActivities() + "\n" + errorString;
 		case 3:
 			return menuString + "\nYou have now planned work for the user: " + user.getName() + "\n"
 					+ "In the activity: " + activity.getName() + "\n"
