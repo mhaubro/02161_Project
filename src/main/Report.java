@@ -16,25 +16,25 @@ public class Report implements Comparable<Report>{
 		this.user = u;
 	}
 
-	public Activity getActivity() {
-		return activity.copy();
-	}
+//	public Activity getActivity() {
+//		return activity;
+//	}
 
 	public User getUser() {
 		return user;
 	}
 
-	public String getID() {
-		return id;
-	}
-
-	public String getNote() {
-		return note;
-	}
-
-	public Report copy() {
-		return new Report(note, timespan, activity, user);
-	}
+//	public String getID() {
+//		return id;
+//	}
+//
+//	public String getNote() {
+//		return note;
+//	}
+//
+//	public Report copy() {
+//		return new Report(note, timespan, activity, user);
+//	}
 
 	public boolean overlap(Timespan t) {
 		return timespan.overlap(t);
@@ -46,7 +46,6 @@ public class Report implements Comparable<Report>{
 	}
 
 	public double getReportedTime() {
-		//System.out.println("Bugtest");
 		return timespan.getTime();
 	}
 

@@ -27,14 +27,14 @@ public class SuperUserTest extends SampleDataSetup{
 	}
 	
 	@Test
-	public void testAdd() throws NoSuchUserException{
+	public void testAdd() throws NoSuchUserException, OperationNotAllowedException{
 		planApp.login("Admin");
 		planApp.makeSuper("GaWo");
 		assertTrue(planApp.isSuperByInitials("GaWo"));
 	}
 	
 	@Test
-	public void noSuchUser() throws NoSuchUserException{
+	public void noSuchUser() throws NoSuchUserException, OperationNotAllowedException{
 		planApp.login("Admin");
 		try {
 			planApp.makeSuper("HKH Dronning MARGRETHE");
@@ -56,7 +56,7 @@ public class SuperUserTest extends SampleDataSetup{
 	}
 	
 	@Test
-	public void removeUser() throws NoSuchUserException{
+	public void removeUser() throws NoSuchUserException, OperationNotAllowedException{
 		planApp.login("Admin");
 		planApp.removeUserByInitials("GaWo");
 		try {
@@ -79,10 +79,21 @@ public class SuperUserTest extends SampleDataSetup{
 	}
 	
 	@Test
-	public void userIsDeleted() throws NoSuchUserException{
+	public void userIsDeleted() throws NoSuchUserException, OperationNotAllowedException{
 		planApp.login("Admin");
 		planApp.removeUserByInitials("MaGa");
 		assertFalse(planApp.isSuperByInitials("MaGa"));
+	}
+	
+	@Test
+	public void superRemoveByNotSuper() throws NoSuchUserException{
+		planApp.login("GaWo");
+		try {
+			planApp.revokeSuper("MaGa");
+			fail();
+		} catch (OperationNotAllowedException e){
+			
+		}
 	}
 	
 

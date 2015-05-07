@@ -1,6 +1,9 @@
 package auto;
 
 import static org.junit.Assert.*;
+
+import java.util.Iterator;
+
 import main.PlanningApp;
 import main.User;
 
@@ -49,6 +52,23 @@ public class AddUser {
 		
 		
 	}
+	
+	@Test
+	public void testRandomlyGeneratedInitials() throws NoSuchUserException{
+		planApp.login("Admin");
+		planApp.addUser("Danny Schoenberg");
+		planApp.addUser("Dan Schoen");
+		Iterator<User> iterator = planApp.getAllEmployees().iterator();
+		int i = 0;
+		while (iterator.hasNext()){
+			User u = iterator.next();
+			if (u.getInitials().equals("DaSc")){
+				i++;
+			}
+		}
+		assertEquals(1, i);
+	}
+
 
 	/*
 	@Test

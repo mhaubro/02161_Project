@@ -115,12 +115,12 @@ public class Project implements Comparable<Project> {
 		return small + str1 + str2 + str3 + userString;
 	}
 
-	public boolean contains(String key) {
-		if (name.contains(key) || id.contains(key)) {
-			return true;
-		}
-		return false;
-	}
+//	public boolean contains(String key) {
+//		if (name.contains(key) || id.contains(key)) {
+//			return true;
+//		}
+//		return false;
+//	}
 
 	@Override
 	public int compareTo(Project p) {

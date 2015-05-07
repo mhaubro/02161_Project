@@ -177,4 +177,11 @@ public class Planning extends SampleDataSetup{
 		assertEquals(0, planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getPlans(timespan4).size());
 		assertEquals(0, planApp.getUserByInitials("DaSc").getPlans(timespan4).size());
 	}
+	
+	@Test
+	public void timeSpanIsCorrect() throws NoSuchUserException, OperationNotAllowedException, UserAlreadyPlannedException, TimeSpanIsNotValidException{
+		setUp2();
+		planApp.login("Admin");
+		assertEquals(timespan2, planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").getPlans().get(1).getTimespan());
+	}
 }

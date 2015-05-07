@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.TreeSet;
 
 import sun.util.calendar.BaseCalendar.Date;
@@ -24,15 +25,6 @@ public class PlanningApp {
 	private User ActiveUser;
 	private int projectRunningNumber = 0;
 
-	public Project getProject(String id) {
-		for (Project p : projects) {
-			if (p.getID().equals(id)) {
-				return p;
-			}
-		}
-		return null;
-	}
-
 	public User getUserByInitials(String initials) throws NoSuchUserException {
 		for (User u : users) {
 			if (u.getInitials().equalsIgnoreCase(initials)) {
@@ -43,8 +35,14 @@ public class PlanningApp {
 
 	}
 
-	public void removeUserByInitials(String initials) {
-		users.removeIf(u -> u.getInitials().equals(initials));
+	public void removeUserByInitials(String initials) throws OperationNotAllowedException {
+		if (isSuperByInitials(ActiveUser.getInitials())){
+			users.removeIf(u -> u.getInitials().equals(initials));
+			revokeSuper(initials);
+		} else {
+			throw new OperationNotAllowedException("The action is only allowed to superusers");
+		}
+		
 	}
 
 	public void login(String initials) throws NoSuchUserException {
@@ -65,18 +63,34 @@ public class PlanningApp {
 		}
 	}
 
-	public void makeSuper(String initials) {
-		if (users.parallelStream().anyMatch(u -> u.getInitials().equals(initials))) {
-			isSuper.add(initials);
+	public void makeSuper(String initials) throws NoSuchUserException, OperationNotAllowedException {
+		if(isSuperByInitials(ActiveUser.getInitials())){
+			if (users.parallelStream().anyMatch(u -> u.getInitials().equals(initials))) {
+				isSuper.add(initials);
+			} else {
+				throw new NoSuchUserException("No Such user exist");
+			}
+		} else {
+			throw new OperationNotAllowedException("Only Superusers can make other users superuser");
 		}
+		
+		
 	}
 
-	public void revokeSuper(String initials) {
-		isSuper.remove(initials);
+	public void revokeSuper(String initials) throws OperationNotAllowedException {
+		if (isSuperByInitials(ActiveUser.getInitials())){
+			isSuper.remove(initials);
+		} else {
+			throw new OperationNotAllowedException("Only superusers can revoke superuser-status");
+		}
 	}
 
 	public int getNumberOfEmployes() {
 		return users.size();
+	}
+	
+	public TreeSet<User> getAllEmployees(){
+		return (users);
 	}
 
 	public Project getProjectByName(String name) {
@@ -146,7 +160,7 @@ public class PlanningApp {
 
 		String result = "";
 		for (int i = 0; i < 4; i++) {
-			result += Character.toChars(65 + random.nextInt(26));
+			result += (char)(65 + random.nextInt(26));
 		}
 		return result;
 	}

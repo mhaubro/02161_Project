@@ -35,11 +35,6 @@ public class Activity {
 		this.budgettedTime = budgettetTime;
 	}
 
-	public Activity copy() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public void planWork(String userId, Timespan planTime) throws NoSuchUserException, OperationNotAllowedException, UserAlreadyPlannedException, TimeSpanIsNotValidException {
 		if(planTime == null){
 			throw new TimeSpanIsNotValidException("TimeSpan-object does not exist");
