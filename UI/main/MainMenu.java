@@ -40,6 +40,9 @@ public class MainMenu extends Menu {
 		if (input.equalsIgnoreCase("3")) {
 			return new RegisterTimeMenu(UI);
 		}
+		if (input.equalsIgnoreCase("4")) {
+			return new PlanWorkMenu(UI);
+		}
 		throw new InputWrongFormatException("The input was not recognized");
 	}
 
