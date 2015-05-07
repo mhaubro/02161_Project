@@ -29,6 +29,9 @@ public class Planning extends SampleDataSetup{
 	Timespan timespan3;
 	Timespan timespan4;
 	Timespan timespan5;
+	Timespan timespan6;
+	Timespan timespan7;
+	Timespan timespan8;
 	
 	//Først testes, at den rette liste af uplanlagte medarbejdere dukker op
 	//Dernæst planlægges en medarbejder
@@ -43,13 +46,17 @@ public class Planning extends SampleDataSetup{
 		GregorianCalendar gregorianCalendar3 = new GregorianCalendar(2015, 2, 1, 12, 0);
 		GregorianCalendar gregorianCalendar4 = new GregorianCalendar(2015, 2, 2, 13, 0);
 		GregorianCalendar gregorianCalendar5 = new GregorianCalendar(2015, 2, 1, 11, 0);
-//		GregorianCalendar gregorianCalandar6 = new GregorianCalendar(2016, 2, 1, 12, 0);
+		GregorianCalendar gregorianCalendar6 = new GregorianCalendar(2015, 2, 1, 7, 0);
+		GregorianCalendar gregorianCalendar7 = new GregorianCalendar(2015, 2, 1, 18, 0);
 		//TSpans
 		timespan1 = new Timespan(gregorianCalendar1, gregorianCalendar2);
 		timespan2 = new Timespan(gregorianCalendar3, gregorianCalendar2);
 		timespan3 = new Timespan(gregorianCalendar3, gregorianCalendar4);
 		timespan4 = new Timespan(gregorianCalendar1, gregorianCalendar5);
 		timespan5 = new Timespan(gregorianCalendar1, gregorianCalendar3);
+		timespan6 = new Timespan(gregorianCalendar6, gregorianCalendar4);
+		timespan7 = new Timespan(gregorianCalendar6, gregorianCalendar7);
+		timespan8 = new Timespan(gregorianCalendar5, gregorianCalendar3);
 		//PlannedWork smækkes ind
 		planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("DaSc", timespan1);
 		planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("SaMu", timespan2);
@@ -105,12 +112,21 @@ public class Planning extends SampleDataSetup{
 	public void testPlanBusy() throws NoSuchUserException, OperationNotAllowedException, UserAlreadyPlannedException, TimeSpanIsNotValidException{//Tjekker, at der smides en exception, hvis det forsøges at planlægge en allerede planlagt user. Exceptionnavn ligger ikke fast.
 		setUp2();
 		planApp.login("ZaBe");
+		//Tester for at brugeren er planlagt i et interval, der omslutter det der forsøges nu
 		try {
-			planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("DaSc", timespan2);
+			planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("DaSc", timespan7);
 			fail();
 		} catch (UserAlreadyPlannedException e){
 			
 		}
+		//Tester for at brugeren er planlagt i et interval, der omsluttes af det der forsøges.
+		try {
+			planApp.getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("DaSc", timespan8);
+			fail();
+		} catch (UserAlreadyPlannedException e){
+			
+		}
+		
 		planApp.logout();
 	}
 	

@@ -13,7 +13,7 @@ public class PlannedWork {
 	}
 
 	public boolean plansOverlapTimespan(Timespan t) {
-		return t.overlap(timespan);
+		return timespan.overlap(t);
 	}
 	
 	public User getUser(){

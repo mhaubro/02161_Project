@@ -21,8 +21,6 @@ public class Timespan {
 		
 		if (t.startTime.compareTo(this.finishTime) <= 0 && t.startTime.compareTo(this.startTime) >= 0)
 			return true;
-		if (t.finishTime.compareTo(this.finishTime) <= 0 && t.finishTime.compareTo(this.startTime) >= 0)
-			return true;
 		
 		return false;
 	}
