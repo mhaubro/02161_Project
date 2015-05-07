@@ -38,7 +38,7 @@ public class Activity implements Comparable<Activity>{
 	public void planWork(String userId, Timespan planTime) throws NoSuchUserException, OperationNotAllowedException, UserAlreadyPlannedException, TimeSpanIsNotValidException {
 		if(planTime == null){
 			throw new TimeSpanIsNotValidException("TimeSpan-object does not exist");
-		} else if(!(this.project.getProjectLeader().getInitials().equalsIgnoreCase(this.getActiveUser().getInitials()) || planApp.isSuperByInitials(getActiveUser().getInitials()))){
+		} else if(this.project!=null && !(this.project.getProjectLeader().getInitials().equalsIgnoreCase(this.getActiveUser().getInitials()) || planApp.isSuperByInitials(getActiveUser().getInitials()))){
 			throw new OperationNotAllowedException("The active user is not project leader");
 		} else if (!this.getUserByInitials(userId).isAvailable(planTime)){
 			throw new UserAlreadyPlannedException("The User is already planned at the time");
