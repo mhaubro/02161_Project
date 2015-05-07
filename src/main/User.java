@@ -58,10 +58,6 @@ public class User implements Comparable<User>{
 		return this.initials.compareTo(u.getInitials());
 	}
 
-	public User copy() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public boolean hasOverlapingReport(Timespan tempTime) {
 		return reports.parallelStream().anyMatch(R -> R.overlap(tempTime));

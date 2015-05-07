@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import exceptions.NoSuchUserException;
 import exceptions.OperationNotAllowedException;
@@ -30,8 +31,88 @@ public class Project implements Comparable<Project> {
 	}
 
 	public String getFollowup() {
-		// TODO create the real followup
-		return "this is a followUp test message";
+		String str1 = "FollowUp on project: " + this.name + "\n";
+		String str2 = "Project Leader: " + this.projectLeader.getName() + "\n";
+		String str3 = "\n";
+		String str4 = "Activities and their states:\n";
+		String str5 = "Activity\tBudgettet Time\tPlanned Time\tRegistered Time\tRegistered/Planned\tBudgettet - Registered\n";
+		//Something something math something får dannet de linjer, hvor der fortælles om aktiviteter.
+		String actiString = "";
+		double totalRegisteredTime = 0;
+		double totalBudgettetTime = 0;
+		double timeLeftOnProjectModifier = 0;//Is either 0 or higher
+		for (Activity activity : activities){
+			double plannedTime = activity.getPlannedTime();
+			double registeredTime = activity.getRegistretTime();
+			int budgettetTime = activity.getBudgettetTime();
+			totalRegisteredTime += registeredTime;
+			totalBudgettetTime += budgettetTime;
+			if (registeredTime > budgettetTime){
+				timeLeftOnProjectModifier += registeredTime - budgettetTime;
+			}
+			actiString = actiString + activity.getName() + "\n\t\t" +(int)budgettetTime + "\t\t"+ plannedTime + "\t\t" + registeredTime
+					+ "\t\t" + (((int)(registeredTime/plannedTime*100+0.5))/100.0) + "\t\t" + (budgettetTime - registeredTime) + "\n";
+		}
+		
+		String str6 = "\n";
+		String str7 = "Amount of work done relative to budgettet time: " + (int)(totalRegisteredTime/totalBudgettetTime*100) + " %\n";
+		String str8 = "Expected workhours left on project: " + (totalBudgettetTime - totalRegisteredTime + timeLeftOnProjectModifier) + "\n";
+		
+		return str1+str2+str3+str4+str5+actiString+str6+str7+str8;
+	}
+	
+	private List<User> getAllUsers(){//Returnerer alle users i projektets plans eller activities samt projektlederen.
+		List<User> usersInProject = new ArrayList<User>();
+		for (Activity activity : activities){
+			for (Report report : activity.getReports()){
+				if (!usersInProject.contains(report.getUser())){
+					usersInProject.add(report.getUser());
+				}
+			}
+			for(PlannedWork plan : activity.getPlans()){
+				if (!usersInProject.contains(plan.getUser())){
+					usersInProject.add(plan.getUser());
+				}
+			}
+		}
+		return usersInProject;
+	}
+	
+	public String getBigFollowup(){
+		String small = getFollowup();
+		String str1 = "\n";
+		String str2 = "Employees on the project\n";
+		String str3 = "User\tPlanned time\tRegistered time\n";
+		//Something something math something
+		List<User> users = getAllUsers();
+		double[][] userData = new double[users.size()][2];
+		//Dermed er alle users fundet, og datasæt er initialiseret
+		//Der itereres, og alle data gemmes. Næppe en effektiv algoritme, but it does the job.
+		for (Activity activity : activities){
+			for (PlannedWork plan : activity.getPlans()){
+				for (int i = 0; i < users.size(); i++){
+					if(plan.getUser().equals(users.get(i))){
+						userData[i][0] += plan.getTime();
+						break;
+					}
+				}
+			}
+			for (Report report : activity.getReports()){
+				for (int i = 0; i < users.size(); i++){
+					if(report.getUser().equals(users.get(i))){
+						userData[i][1] += report.getReportedTime();
+						break;
+					} 
+				}
+			}
+		}
+		//Data er gemt. Der skal printes strings.
+		String userString = "";
+		for (int i = 0; i < users.size(); i++){
+			userString += users.get(i).getInitials() + "\t" + userData[i][0] + "\t\t" + userData[i][1] + "\n";
+		}
+		
+		return small + str1 + str2 + str3 + userString;
 	}
 
 	public boolean contains(String key) {

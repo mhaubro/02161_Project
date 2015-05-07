@@ -32,6 +32,7 @@ public class Activity {
 		this.timespan = t;
 		this.project = p;
 		this.planApp = planApp;
+		this.budgettedTime = budgettetTime;
 	}
 
 	public Activity copy() {
@@ -97,9 +98,7 @@ public class Activity {
 		return planApp.getUserByInitials(userID);
 	}
 	
-	public List<PlannedWork> getPlans(){
-		return Collections.unmodifiableList(plans);
-	}
+
 
 	public List<PlannedWork> getPlans(Timespan t){
 		List<PlannedWork>plansInTimespan = new ArrayList<PlannedWork>();
@@ -113,6 +112,26 @@ public class Activity {
 	
 	public void deletePlannedWork(PlannedWork plannedWork){
 		plans.remove(plannedWork);
+	}
+
+	public double getPlannedTime() {
+		double plannedTime = 0;
+		for (PlannedWork plan : this.plans){
+			plannedTime += plan.getTime();
+		}
+		return plannedTime;
+	}
+	
+	public int getBudgettetTime(){
+		return this.budgettedTime;
+	}
+	
+	public List<Report> getReports(){
+		return Collections.unmodifiableList(reports);
+	}
+	
+	public List<PlannedWork> getPlans(){
+		return Collections.unmodifiableList(plans);
 	}
 	
 }

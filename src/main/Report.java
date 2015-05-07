@@ -21,7 +21,7 @@ public class Report implements Comparable<Report>{
 	}
 
 	public User getUser() {
-		return user.copy();
+		return user;
 	}
 
 	public String getID() {
@@ -46,6 +46,7 @@ public class Report implements Comparable<Report>{
 	}
 
 	public double getReportedTime() {
+		//System.out.println("Bugtest");
 		return timespan.getTime();
 	}
 

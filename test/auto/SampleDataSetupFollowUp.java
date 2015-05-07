@@ -79,10 +79,7 @@ public class SampleDataSetupFollowUp extends SampleDataSetup{
 						new GregorianCalendar(2015, 5, 3), 
 						new GregorianCalendar(2015, 8, 2)), 
 				20);
-		
-		Timespan timespanFollowUp1 = new Timespan(
-				new GregorianCalendar(2015, 6, 3, 8, 0), 
-				new GregorianCalendar(2015, 6, 3, 16, 0));
+
 		
 		
 		

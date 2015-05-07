@@ -30,6 +30,10 @@ public class PlannedWork implements Comparable<PlannedWork> {
 		this.user.deletePlannedWork(this);
 	}
 	
+	public double getTime(){
+		return this.timespan.getTime();
+	}
+	
 //	public Timespan getTimespan(){
 //		return this.timespan;
 //	}
