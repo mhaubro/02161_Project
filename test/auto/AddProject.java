@@ -8,6 +8,7 @@ import main.User;
 import org.junit.Before;
 import org.junit.Test;
 
+import exceptions.NoSuchProjectException;
 import exceptions.NoSuchUserException;
 import exceptions.OperationNotAllowedException;
 
@@ -77,6 +78,13 @@ public class AddProject extends SampleDataSetup {
 		} catch (NoSuchUserException e) {
 			fail("the name should be free and the active user should be super");
 		}
+	}
+	
+	@Test
+	public void testGetProjectByName() throws Exception {
+		planApp.login("Admin");
+		Project P = planApp.getProjectByName("Funktionelt NemID-system");
+		assertEquals(P, null);
 	}
 
 }

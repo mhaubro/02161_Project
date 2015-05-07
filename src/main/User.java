@@ -38,10 +38,7 @@ public class User implements Comparable<User>{
 		}
 		return true;
 	}
-	
-	public boolean contains(String key){
-		return false;
-	}
+
 	
 	public void addReport(Report r){
 		reports.add(r);
@@ -53,19 +50,15 @@ public class User implements Comparable<User>{
 		
 	}
 	
-	public void addActivity(Activity a){
-		
-	}
+//	public void addActivity(Activity a){
+//		
+//	}
 
 	@Override
 	public int compareTo(User u) {
 		return this.initials.compareTo(u.getInitials());
 	}
 
-	public User copy() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public boolean hasOverlapingReport(Timespan tempTime) {
 		return reports.parallelStream().anyMatch(R -> R.overlap(tempTime));

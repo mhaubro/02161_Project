@@ -1,6 +1,6 @@
 package main;
 
-public class PlannedWork implements Comparable<PlannedWork> {
+public class PlannedWork {
 
 	private Timespan timespan;
 	private Activity activity;
@@ -12,13 +12,8 @@ public class PlannedWork implements Comparable<PlannedWork> {
 		this.user = user;
 	}
 
-	@Override
-	public int compareTo(PlannedWork otherPlannedWork) {
-		return this.timespan.startTime.compareTo(otherPlannedWork.timespan.startTime);
-	}
-
 	public boolean plansOverlapTimespan(Timespan t) {
-		return t.overlap(timespan);
+		return timespan.overlap(t);
 	}
 	
 	public User getUser(){
@@ -30,11 +25,12 @@ public class PlannedWork implements Comparable<PlannedWork> {
 		this.user.deletePlannedWork(this);
 	}
 	
-//	public Timespan getTimespan(){
-//		return this.timespan;
-//	}
-//	
-//	public Activity getActivity(){
-//		return this.activity;
-//	}
+	public double getTime(){
+		return this.timespan.getTime();
+	}
+	
+	public Timespan getTimespan(){
+		return this.timespan;
+	}
+
 }

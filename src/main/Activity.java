@@ -32,26 +32,19 @@ public class Activity implements Comparable<Activity> {
 		this.timespan = t;
 		this.project = p;
 		this.planApp = planApp;
-	}
-
-	public Activity copy() {
-		// TODO Auto-generated method stub
-		return null;
+		this.budgettedTime = budgettetTime;
 	}
 
 	public void planWork(String userId, Timespan planTime) throws NoSuchUserException, OperationNotAllowedException,
 			UserAlreadyPlannedException, TimeSpanIsNotValidException {
 		if (planTime == null) {
 			throw new TimeSpanIsNotValidException("TimeSpan-object does not exist");
-
 		} else if (this.project != null
 				&& !(this.project.getProjectLeader().getInitials().equalsIgnoreCase(this.getActiveUser().getInitials()) || planApp
 						.isSuperByInitials(getActiveUser().getInitials()))) {
 			throw new OperationNotAllowedException("The active user is not project leader");
-
 		} else if (!this.getUserByInitials(userId).isAvailable(planTime)) {
 			throw new UserAlreadyPlannedException("The User is already planned at the time");
-
 		} else if (planTime.getTime() > 24) {
 			throw new TimeSpanIsNotValidException("Plans can't be for more than 24 hours");
 		}
@@ -77,11 +70,6 @@ public class Activity implements Comparable<Activity> {
 
 		reports.add(newReport);
 		activeUser.addReport(newReport);
-
-		if (!users.contains(activeUser)) {
-			users.add(activeUser);
-		}
-
 	}
 
 	public double getRegistretTime() {
@@ -108,10 +96,6 @@ public class Activity implements Comparable<Activity> {
 		return planApp.getUserByInitials(userID);
 	}
 
-	public List<PlannedWork> getPlans() {
-		return Collections.unmodifiableList(plans);
-	}
-
 	public List<PlannedWork> getPlans(Timespan t) {
 		List<PlannedWork> plansInTimespan = new ArrayList<PlannedWork>();
 		for (PlannedWork p : plans) {
@@ -126,9 +110,29 @@ public class Activity implements Comparable<Activity> {
 		plans.remove(plannedWork);
 	}
 
+	public double getPlannedTime() {
+		double plannedTime = 0;
+		for (PlannedWork plan : this.plans) {
+			plannedTime += plan.getTime();
+		}
+		return plannedTime;
+	}
+
+	public int getBudgettetTime() {
+		return this.budgettedTime;
+	}
+
+	public List<Report> getReports() {
+		return Collections.unmodifiableList(reports);
+	}
+
+	public List<PlannedWork> getPlans() {
+		return Collections.unmodifiableList(plans);
+	}
+
 	@Override
-	public int compareTo(Activity otherA) {
-		return this.getName().compareTo(otherA.getName());
+	public int compareTo(Activity A) {
+		return this.getName().compareTo(A.getName());
 	}
 
 }
