@@ -17,7 +17,7 @@ public class AddActivity extends SampleDataSetup{
 	@Test
 	public void testMain() throws Exception{
 
-		Timespan timespan = new Timespan(new GregorianCalendar(2015,3,1), new GregorianCalendar(2015,1,1));
+		Timespan timespan = new Timespan(new GregorianCalendar(2015,1,1), new GregorianCalendar(2015,3,1));
 		
 		planApp.login("MiNe"); 
 		planApp.getProjectByName("Solstorm").addActivity("Regndans", "Der skal også vand til!", timespan, 10);
@@ -33,7 +33,7 @@ public class AddActivity extends SampleDataSetup{
 	@Test
 	public void testAltnernative() throws Exception{
 		
-		Timespan timespan = new Timespan(new GregorianCalendar(2015,3,1), new GregorianCalendar(2015,1,1));
+		Timespan timespan = new Timespan(new GregorianCalendar(2015,1,1), new GregorianCalendar(2015,3,1));
 		
 		planApp.login("DaSc");
 

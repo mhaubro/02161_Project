@@ -12,7 +12,7 @@ import exceptions.OverlapException;
 import exceptions.TimeSpanIsNotValidException;
 import exceptions.UserAlreadyPlannedException;
 
-public class Activity {
+public class Activity implements Comparable<Activity>{
 
 	private String name;
 	private String task;
@@ -67,10 +67,6 @@ public class Activity {
 		
 		reports.add(newReport);
 		activeUser.addReport(newReport);
-		
-		if (!users.contains(activeUser)){
-			users.add(activeUser);
-		}
 	}
 
 	public double getRegistretTime() {
@@ -96,6 +92,8 @@ public class Activity {
 			throw new OperationNotAllowedException("cant return active user, No planningApp linked to this activity");
 		return planApp.getUserByInitials(userID);
 	}
+	
+
 
 	public List<PlannedWork> getPlans(Timespan t){
 		List<PlannedWork>plansInTimespan = new ArrayList<PlannedWork>();
@@ -129,6 +127,11 @@ public class Activity {
 	
 	public List<PlannedWork> getPlans(){
 		return Collections.unmodifiableList(plans);
+	}
+
+	@Override
+	public int compareTo(Activity A) {
+		return this.getName().compareTo(A.getName());
 	}
 	
 }
