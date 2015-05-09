@@ -31,7 +31,7 @@ public class AddActivity extends SampleDataSetup{
 	
 	//Tilføjer aktivitet som almen bruger. Skal fejle.
 	@Test
-	public void testAltnernative() throws Exception{
+	public void testNotProjectLeader() throws Exception{
 		
 		Timespan timespan = new Timespan(new GregorianCalendar(2015,1,1), new GregorianCalendar(2015,3,1));
 		
@@ -47,6 +47,8 @@ public class AddActivity extends SampleDataSetup{
 		assertEquals(false, planApp.getProjectByName("Solstorm").containsActivity("Regndans"));
 	}
 	
+	@Test
+	public void 
 	
 	
 }
