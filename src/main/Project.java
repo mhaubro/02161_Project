@@ -129,12 +129,17 @@ public class Project implements Comparable<Project> {
 
 	public void addActivity(String name, String description, Timespan timespan, int budgettetTime)
 			throws OperationNotAllowedException {
-		//
-		if (getActiveUser().equals(this.projectLeader) || isActiveUserSuperuser()) {
-			Activity newAct = new Activity(name, description, timespan, this, planApp, budgettetTime);
-			activities.add(newAct);
+		//Hvis User er projektleder og/eller superuser samt at navnet på aktiviteen er unikt
+		if (!(getActiveUser().equals(this.projectLeader) || isActiveUserSuperuser())){
+			throw new OperationNotAllowedException("Only the project leader can create activities.");
+		} else if (getActivityByName(name) != null) {
+			throw new OperationNotAllowedException("There is alredy an activity with this name.");
+		} else if (timespan == null) {
+			throw new OperationNotAllowedException("There has to be a given timespan to create a project.");
+		} else if (budgettetTime < 0) {
+			throw new OperationNotAllowedException("Budgettet time must be at least 0.");
 		} else {
-			throw new OperationNotAllowedException("Kun projektlederen kan oprette aktiviteter");
+			activities.add(new Activity(name, description, timespan, this, planApp, budgettetTime));
 		}
 
 	}

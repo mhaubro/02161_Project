@@ -96,6 +96,4 @@ public class SuperUserTest extends SampleDataSetup{
 		}
 	}
 	
-
-	
 }

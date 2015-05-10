@@ -129,8 +129,18 @@ public class PlanningApp {
 
 	public void addActivity(String name, String description, Timespan timespan, int BudgettetTime)
 			throws OperationNotAllowedException {
-
-		activities.add(new Activity(name, description, timespan, null, this, BudgettetTime));
+		
+		if (!(isSuperByInitials(ActiveUser.getInitials()))){
+			throw new OperationNotAllowedException("Only the project leader can create activities.");
+		} else if (getActivityByName(name) != null) {
+			throw new OperationNotAllowedException("There is alredy an activity with this name.");
+		} else if (timespan == null) {
+			throw new OperationNotAllowedException("There has to be a given timespan to create a project.");
+		} else if (BudgettetTime < 0) {
+			throw new OperationNotAllowedException("Budgettet time must be at least 0.");
+		} else {
+			activities.add(new Activity(name, description, timespan, null, this, BudgettetTime));
+		}
 	}
 
 	public void logout() {
