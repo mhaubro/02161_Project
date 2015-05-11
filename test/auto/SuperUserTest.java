@@ -15,6 +15,12 @@ import org.junit.*;
 
 import exceptions.*;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ * @author Martin Haubro
+ *
+ */
 public class SuperUserTest extends SampleDataSetup{
 	
 	

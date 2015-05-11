@@ -14,6 +14,11 @@ import org.junit.Test;
 import exceptions.OperationNotAllowedException;
 import exceptions.OverlapException;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ *
+ */
 public class TimeRegistration extends SampleDataSetup {
 
 	@Test

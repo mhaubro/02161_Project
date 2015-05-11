@@ -12,6 +12,11 @@ import exceptions.NoSuchProjectException;
 import exceptions.NoSuchUserException;
 import exceptions.OperationNotAllowedException;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ *
+ */
 public class AddProject extends SampleDataSetup {
 
 	//PlanningApp planApp;

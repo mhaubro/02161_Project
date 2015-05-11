@@ -12,6 +12,12 @@ import exceptions.OverlapException;
 import exceptions.TimeSpanIsNotValidException;
 import exceptions.UserAlreadyPlannedException;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ * @author Martin Haubro
+ *
+ */
 public class Activity implements Comparable<Activity>{
 
 	private String name;

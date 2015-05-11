@@ -3,6 +3,11 @@ package main;
 import exceptions.InputWrongFormatException;
 import exceptions.NoSuchUserException;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ *
+ */
 public class LoginMenu extends Menu {
 
 	String menuString = "";

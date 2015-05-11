@@ -16,7 +16,11 @@ import org.junit.*;
 import exceptions.NoSuchUserException;
 import exceptions.OperationNotAllowedException;
 
-
+/**
+ * 
+ * @author Martin Haubro
+ *
+ */
 public class SwitchProjectLeader extends SampleDataSetup{
 	
 	@Test

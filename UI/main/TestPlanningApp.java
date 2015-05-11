@@ -2,6 +2,11 @@ package main;
 
 import java.util.GregorianCalendar;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ *
+ */
 public class TestPlanningApp extends PlanningApp {
 	
 	public TestPlanningApp(){

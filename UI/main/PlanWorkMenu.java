@@ -8,6 +8,11 @@ import exceptions.OperationNotAllowedException;
 import exceptions.TimeSpanIsNotValidException;
 import exceptions.UserAlreadyPlannedException;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ *
+ */
 public class PlanWorkMenu extends Menu {
 
 	String menuString = "";

@@ -6,6 +6,12 @@ import java.util.List;
 import exceptions.NoSuchUserException;
 import exceptions.OperationNotAllowedException;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ * @author Martin Haubro
+ *
+ */
 public class Project implements Comparable<Project> {
 
 	private ArrayList<Activity> activities;

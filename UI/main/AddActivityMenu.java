@@ -5,6 +5,11 @@ import java.util.GregorianCalendar;
 import exceptions.InputWrongFormatException;
 import exceptions.OperationNotAllowedException;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ *
+ */
 public class AddActivityMenu extends Menu {
 
 	int menuState = 0;

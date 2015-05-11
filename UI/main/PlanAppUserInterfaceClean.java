@@ -4,6 +4,11 @@ import java.util.Observable;
 
 import exceptions.InputWrongFormatException;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ *
+ */
 public class PlanAppUserInterfaceClean extends JFrameUserInterface {
 
 	Menu activeMenu;

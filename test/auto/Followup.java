@@ -19,6 +19,11 @@ import exceptions.OverlapException;
 import exceptions.TimeSpanIsNotValidException;
 import exceptions.UserAlreadyPlannedException;
 
+/**
+ * 
+ * @author Martin Haubro
+ *
+ */
 public class Followup extends SampleDataSetupFollowUp{
 
 	@Test

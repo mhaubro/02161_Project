@@ -4,6 +4,11 @@ import exceptions.InputWrongFormatException;
 import exceptions.NoSuchUserException;
 import exceptions.OperationNotAllowedException;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ *
+ */
 public class AddProjectMenu extends Menu {
 
 	int menuState = 0;

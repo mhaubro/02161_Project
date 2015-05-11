@@ -12,6 +12,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ *
+ */
 public class JFrameUserInterface extends JFrame implements Observer {
 	private static final long serialVersionUID = 1L;
 

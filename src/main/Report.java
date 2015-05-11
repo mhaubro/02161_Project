@@ -1,5 +1,11 @@
 package main;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ * @author Martin Haubro
+ *
+ */
 public class Report implements Comparable<Report>{
 
 	private String note;

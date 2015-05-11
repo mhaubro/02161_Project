@@ -4,6 +4,11 @@ import java.util.Observable;
 
 import exceptions.InputWrongFormatException;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ *
+ */
 public class PlanAppUserInterface extends JFrameUserInterface {
 	private static final long serialVersionUID = 1L;
 	

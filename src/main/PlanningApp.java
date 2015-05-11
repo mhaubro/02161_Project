@@ -17,6 +17,12 @@ import sun.util.calendar.BaseCalendar.Date;
 import exceptions.NoSuchUserException;
 import exceptions.OperationNotAllowedException;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ * @author Martin Haubro
+ *
+ */
 public class PlanningApp {
 
 	private static final User admin = new User("Admin Administrator", "Admin");

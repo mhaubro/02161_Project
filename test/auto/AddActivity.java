@@ -15,6 +15,12 @@ import org.junit.*;
 
 import exceptions.*;
 
+
+/**
+ * 
+ * @author Martin Haubro
+ *
+ */
 public class AddActivity extends SampleDataSetup{
 	
 	//Tilføjer aktivitet som projektleder. Skal godkende.

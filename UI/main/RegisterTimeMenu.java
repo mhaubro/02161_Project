@@ -6,6 +6,11 @@ import exceptions.InputWrongFormatException;
 import exceptions.OperationNotAllowedException;
 import exceptions.OverlapException;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ *
+ */
 public class RegisterTimeMenu extends Menu {
 
 	String menuString;

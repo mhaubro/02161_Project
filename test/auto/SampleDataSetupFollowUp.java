@@ -7,6 +7,11 @@ import main.Timespan;
 
 import org.junit.Before;
 
+/**
+ * 
+ * @author Martin Haubro
+ *
+ */
 public class SampleDataSetupFollowUp extends SampleDataSetup{
 	PlanningApp planApp;
 

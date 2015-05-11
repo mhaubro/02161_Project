@@ -2,6 +2,11 @@ package main;
 
 import exceptions.InputWrongFormatException;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ *
+ */
 public class GetFollowUpMenu extends Menu {
 	
 	String menuString = "";

@@ -15,6 +15,11 @@ import org.junit.*;
 
 import exceptions.NoSuchUserException;
 
+/**
+ * 
+ * @author Martin Haubro
+ *
+ */
 public class Login extends SampleDataSetup {
 	
 	@Test

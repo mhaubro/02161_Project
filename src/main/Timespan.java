@@ -4,6 +4,12 @@ import java.util.Calendar;
 
 import exceptions.OperationNotAllowedException;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ * @author Martin Haubro
+ *
+ */
 public class Timespan {
 	
 	final Calendar startTime, finishTime;

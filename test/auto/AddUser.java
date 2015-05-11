@@ -12,6 +12,11 @@ import org.junit.Test;
 
 import exceptions.NoSuchUserException;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ *
+ */
 public class AddUser {
 
 	PlanningApp planApp;

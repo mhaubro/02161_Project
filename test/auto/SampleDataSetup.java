@@ -8,6 +8,11 @@ import main.Timespan;
 
 import org.junit.Before;
 
+/**
+ * 
+ * @author Mathias Gammelmark
+ *
+ */
 public class SampleDataSetup {
 
 	PlanningApp planApp;

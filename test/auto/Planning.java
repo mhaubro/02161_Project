@@ -22,6 +22,11 @@ import exceptions.OperationNotAllowedException;
 import exceptions.TimeSpanIsNotValidException;
 import exceptions.UserAlreadyPlannedException;
 
+/**
+ * 
+ * @author Martin Haubro
+ *
+ */
 public class Planning extends SampleDataSetup{
 	
 	Timespan timespan1;
