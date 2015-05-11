@@ -21,8 +21,10 @@ public class MainMenu extends Menu {
 				"  2 = Logout\n" +
 				"  3 = Register Time\n" +
 				"  4 = Plan Work\n" +
-				"  5 = Manage Projects\n" +
-				"  6 = Magage Users\n" +
+				"  5 = Add Project\n" +
+				"  6 = Add Activity\n" +
+				"  7 = Add User\n" +
+				"  8 = FollowUp\n" +
 				"  E = Exit\n");
 	}
 
@@ -40,8 +42,20 @@ public class MainMenu extends Menu {
 		if (input.equalsIgnoreCase("3")) {
 			return new RegisterTimeMenu(UI);
 		}
-		if (input.equalsIgnoreCase("4")){
+		if (input.equalsIgnoreCase("4")) {
 			return new PlanWorkMenu(UI);
+		}
+		if (input.equalsIgnoreCase("5")) {
+			return new AddProjectMenu(UI);
+		}
+		if (input.equalsIgnoreCase("6")) {
+			return new AddActivityMenu(UI);
+		}
+		if (input.equalsIgnoreCase("7")) {
+			return new AddUserMenu(UI);
+		}
+		if (input.equalsIgnoreCase("8")){
+			return new GetFollowUpMenu(UI);
 		}
 		throw new InputWrongFormatException("The input was not recognized");
 	}
