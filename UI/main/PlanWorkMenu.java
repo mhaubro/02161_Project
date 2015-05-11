@@ -136,13 +136,13 @@ public class PlanWorkMenu extends Menu {
 			t = new Timespan(
 					new GregorianCalendar(
 							Integer.parseInt(dateString[0]),
-							Integer.parseInt(dateString[1]),
+							Integer.parseInt(dateString[1])-1,
 							Integer.parseInt(dateString[2]),
 							Integer.parseInt(dateString[3]),
 							Integer.parseInt(dateString[4])),
 					new GregorianCalendar(
 							Integer.parseInt(dateString[5]),
-							Integer.parseInt(dateString[6]),
+							Integer.parseInt(dateString[6])-1,
 							Integer.parseInt(dateString[7]),
 							Integer.parseInt(dateString[8]),
 							Integer.parseInt(dateString[9])));
