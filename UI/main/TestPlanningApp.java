@@ -72,6 +72,71 @@ public class TestPlanningApp extends PlanningApp {
 						new GregorianCalendar(2015, 5, 3), 
 						new GregorianCalendar(2015, 8, 2)), 
 				20);
+		
+		logout();
+		login("DaSc");
+		
+		getProjectByName("HalfLife 3").getActivityByName("Design")
+		.registreTime(new Timespan(
+				new GregorianCalendar(2015, 6, 3, 8, 0), 
+				new GregorianCalendar(2015, 6, 3, 16, 0)), "This is some serius Design work...");
+		
+		getProjectByName("HalfLife 3").getActivityByName("Design")
+		.registreTime(new Timespan(
+				new GregorianCalendar(2015, 6, 6, 8, 0), 
+				new GregorianCalendar(2015, 6, 6, 16, 0)), "This is some serius Design work...");
+		getProjectByName("HalfLife 3").getActivityByName("Engine")
+		.registreTime(new Timespan(
+				new GregorianCalendar(2015, 6, 4, 8, 0), 
+				new GregorianCalendar(2015, 6, 4, 16, 0)), "This is some serius Engine work...");
+		
+		
+		logout();
+		login("GaWo");
+		getProjectByName("HalfLife 3").getActivityByName("Design")
+		.registreTime(new Timespan(
+				new GregorianCalendar(2015, 6, 6, 8, 0), 
+				new GregorianCalendar(2015, 6, 6, 12, 0)), "This is some serius Design work...");
+		getProjectByName("HalfLife 3").getActivityByName("Engine")
+		.registreTime(new Timespan(
+				new GregorianCalendar(2015, 6, 4, 8, 0), 
+				new GregorianCalendar(2015, 6, 4, 12, 0)), "This is some serius Engine work...");
+		
+		
+		logout();
+		//Logger ind som projektleder. Tilføjer arbejde + planer
+		login("ZaBe");
+		//Planlægger GaWo
+		getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("GaWo", new Timespan(
+				new GregorianCalendar(2015, 6, 4, 8, 0), 
+				new GregorianCalendar(2015, 6, 4, 12, 0)));
+		getProjectByName("HalfLife 3").getActivityByName("Design").planWork("GaWo", new Timespan(
+				new GregorianCalendar(2015, 6, 6, 8, 0), 
+				new GregorianCalendar(2015, 6, 6, 12, 0)));
+		//Planlægger ZaBe
+		getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("ZaBe", new Timespan(
+				new GregorianCalendar(2015, 6, 6, 8, 0), 
+				new GregorianCalendar(2015, 6, 6, 12, 0)));
+		getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("ZaBe", new Timespan(
+				new GregorianCalendar(2015, 6, 12, 8, 0), 
+				new GregorianCalendar(2015, 6, 12, 12, 0)));
+		//Planlægger DaSc
+		getProjectByName("HalfLife 3").getActivityByName("Design").planWork("DaSc", new Timespan(
+				new GregorianCalendar(2015, 6, 3, 8, 0), 
+				new GregorianCalendar(2015, 6, 3, 16, 0)));
+		getProjectByName("HalfLife 3").getActivityByName("Design").planWork("DaSc", new Timespan(
+				new GregorianCalendar(2015, 6, 4, 8, 0), 
+				new GregorianCalendar(2015, 6, 4, 16, 0)));
+		getProjectByName("HalfLife 3").getActivityByName("Engine").planWork("DaSc", new Timespan(
+				new GregorianCalendar(2015, 6, 5, 8, 0), 
+				new GregorianCalendar(2015, 6, 5, 16, 0)));
+		//Registrerer ZaBe
+		getProjectByName("HalfLife 3").getActivityByName("Engine")
+		.registreTime(new Timespan(
+				new GregorianCalendar(2015, 6, 6, 8, 0), 
+				new GregorianCalendar(2015, 6, 6, 12, 0)), "This is some serius Engine work...");
+		//Derved er der indtastet en masse data, som en followUp kan arbejde med
+		logout();
 	}
 
 }
