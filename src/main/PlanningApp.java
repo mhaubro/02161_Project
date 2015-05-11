@@ -231,6 +231,16 @@ public class PlanningApp {
 		return returnList;
 	}
 	
+	public ArrayList<Project> getAllProjects(){
+		ArrayList<Project> returnList = new ArrayList<Project>();
+		
+		for (Project P : projects){
+			returnList.add(P);
+		}
+		
+		return returnList;
+	}
+	
 	public Activity getActivityByName(String input){
 		for (Project P : projects){
 			Activity a = P.getActivityByName(input);

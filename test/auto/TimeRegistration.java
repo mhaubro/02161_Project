@@ -108,5 +108,7 @@ public class TimeRegistration extends SampleDataSetup {
 			assertEquals("Cant register time, the given timespan is null", e.getMessage());
 		}
 	}
+	
+	
 
 }
