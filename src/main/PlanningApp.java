@@ -211,6 +211,11 @@ public class PlanningApp {
 	public List<User> getUsers(){
 		return users.parallelStream().sorted().collect(Collectors.toList());
 	}
+	
+	public ArrayList<Activity> getLooseActivities() {
+		
+		return activities;
+	}
 
 	public ArrayList<Activity> getAllActivities() {
 		ArrayList<Activity> returnList = new ArrayList<Activity>();

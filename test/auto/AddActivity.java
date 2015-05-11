@@ -104,18 +104,18 @@ public class AddActivity extends SampleDataSetup{
 		
 	}
 	
-	@Test//Tester for samme som de foregående, men for løse aktiviteter. Det skal noteres, at der er 3 aktiviteter i forvejen fra DatasampleSetup.
+	@Test//Tester for samme som de foregående, men for løse aktiviteter. Det skal noteres, at der er 1 aktivitet i forvejen fra DatasampleSetup.
 	public void addLooseActivity() throws Exception{
 		Timespan timespan = new Timespan(new GregorianCalendar(2015,1,1), new GregorianCalendar(2015,3,1));
 		
 		planApp.login("Admin"); 
 		planApp.addActivity("Regndans", "Der skal også vand til!", timespan, 10);
 		
-		assertEquals(1+3,planApp.getAllActivities().size());
+		assertEquals(1+1,planApp.getLooseActivities().size());
 		assertEquals(true, planApp.getActivityByName("Regndans") != null);
 		
 		planApp.logout();
-		//Der er herfra 3 + 1 aktiviteter i planningAppen
+		//Der er herfra 1 + 1 aktiviteter i planningAppen
 		//Tester at kun superuser kan tilføje aktivitet
 		planApp.login("MiNe");
 		try {
@@ -124,7 +124,7 @@ public class AddActivity extends SampleDataSetup{
 		} catch (OperationNotAllowedException e){
 			
 		}
-		assertEquals(1+3,planApp.getAllActivities().size());
+		assertEquals(1+1,planApp.getLooseActivities().size());
 		planApp.logout();
 		planApp.login("Admin");
 		//Tester, at navnet ikke er i brug
@@ -134,7 +134,7 @@ public class AddActivity extends SampleDataSetup{
 		} catch (OperationNotAllowedException e){
 			
 		}
-		assertEquals(1+3,planApp.getAllActivities().size());
+		assertEquals(1+1,planApp.getLooseActivities().size());
 		//Tester at budgetteret tid >= 0
 		try{
 			planApp.addActivity("Ferie", "Det skal i ikke bruge tid på...", timespan, -1);
@@ -142,7 +142,7 @@ public class AddActivity extends SampleDataSetup{
 		} catch (OperationNotAllowedException e){
 			
 		}
-		assertEquals(1+3,planApp.getAllActivities().size());
+		assertEquals(1+1,planApp.getLooseActivities().size());
 		//Tester at de er et timespan-objekt
 		timespan = null;
 		
@@ -153,7 +153,7 @@ public class AddActivity extends SampleDataSetup{
 		} catch (OperationNotAllowedException e){
 			
 		}
-		assertEquals(1+3,planApp.getAllActivities().size());
+		assertEquals(1+1,planApp.getLooseActivities().size());
 	}
 	
 }
